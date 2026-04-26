@@ -249,6 +249,26 @@ def _write_deployment(con: object, rule_id: str, status: str, stats: dict[str, o
     )
 
 
+def _write_candidate_artifacts(cluster: FailureCluster, rule_text: str) -> None:
+    candidates_dir = PROJECT_ROOT / "skills/candidates"
+    candidates_dir.mkdir(parents=True, exist_ok=True)
+    rule_id = get_rule_id(rule_text)
+    (candidates_dir / f"{rule_id}.md").write_text(rule_text, encoding="utf-8")
+    (candidates_dir / f"{rule_id}_cluster.json").write_text(
+        json.dumps(
+            {
+                "cluster_id": cluster.cluster_id,
+                "trade_ids": cluster.trade_ids[:20],
+                "summary": cluster.summary,
+            },
+            ensure_ascii=False,
+            indent=2,
+        )
+        + "\n",
+        encoding="utf-8",
+    )
+
+
 def main() -> None:
     parser = argparse.ArgumentParser(description="Run the full gsuda-engine feedback loop demo.")
     parser.add_argument(
@@ -291,12 +311,9 @@ def main() -> None:
                 f"- {cluster.cluster_id}: {len(cluster.trade_ids)} failures, "
                 f"avg failed T+5 {cluster.summary['avg_failed_return_pct']}%"
             )
-            drafted.append(
-                (
-                    cluster.cluster_id,
-                    draft_rule(cluster, use_mock=not args.agent_sdk, use_agent_sdk=args.agent_sdk),
-                )
-            )
+            rule_text = draft_rule(cluster, use_mock=not args.agent_sdk, use_agent_sdk=args.agent_sdk)
+            _write_candidate_artifacts(cluster, rule_text)
+            drafted.append((cluster.cluster_id, rule_text))
 
         banner("Stage 4: Backtest gate")
         for cluster_id, rule_text in drafted:

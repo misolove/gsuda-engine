@@ -7,14 +7,23 @@ cd "$ROOT_DIR"
 SHORT_PAUSE="${DEMO_SHORT_PAUSE:-3}"
 MEDIUM_PAUSE="${DEMO_MEDIUM_PAUSE:-6}"
 LONG_PAUSE="${DEMO_LONG_PAUSE:-10}"
-RUN_MODE="${1:---agent-sdk}"
+RUN_MODE="${1:---mock}"
 PYTHON_BIN="${PYTHON_BIN:-python}"
 
-if [[ "$RUN_MODE" == "--mock" ]]; then
-  RUN_ARGS=()
-else
-  RUN_ARGS=("--agent-sdk")
-fi
+case "$RUN_MODE" in
+  --mock)
+    RUN_ARGS=()
+    DRAFTING_LINE="This recording uses the deterministic API-free drafter for speed and reliability."
+    ;;
+  --agent-sdk)
+    RUN_ARGS=("--agent-sdk")
+    DRAFTING_LINE="This recording uses Claude Agent SDK to draft candidate skill files."
+    ;;
+  *)
+    printf "Usage: %s [--mock|--agent-sdk]\n" "$0" >&2
+    exit 1
+    ;;
+esac
 
 banner() {
   local title="$1"
@@ -69,13 +78,15 @@ fi
 
 clear
 banner "gsuda-engine recording script"
-cat <<'TEXT'
+cat <<TEXT
 This recording script is intentionally paced for a 4-5 minute demo.
 
 Story:
-1. Claude Agent SDK drafts candidate risk rules from clustered failures.
+1. Candidate risk rules are drafted from clustered failures.
 2. The validator decides: one rule is promoted, one is quarantined.
 3. Saju notation is English-first for judges, with original Hanja preserved.
+
+${DRAFTING_LINE}
 
 Opening line:
 "Claude drafts. Data validates. Risk Guardian deploys."

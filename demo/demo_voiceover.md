@@ -22,7 +22,7 @@ Stage 1 logs simulated recommendations with technical indicators, year, month, a
 
 Stage 2 tags T+5 outcomes.
 
-Stage 3 clusters failures and uses Claude Agent SDK to draft candidate YAML and markdown skill files.
+Stage 3 clusters failures and drafts candidate YAML and markdown skill files. For this recording I use the deterministic API-free path, while the repo also includes the optional Claude Agent SDK path.
 
 Stage 4 runs the validation gate.
 

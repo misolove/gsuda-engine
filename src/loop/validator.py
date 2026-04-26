@@ -218,6 +218,7 @@ def render_validated_rule(rule_text: str, result: ValidationResult) -> str:
     yaml = YAML()
     yaml.allow_unicode = True
     yaml.default_flow_style = False
+    yaml.width = 4096
     out = io.StringIO()
     yaml.dump(metadata, out)
     return f"---\n{out.getvalue()}---\n\n{body}"

@@ -55,6 +55,20 @@ content and the local harness stores it under `skills/candidates/`. The
 validator still controls deployment, so this is gated self-improvement rather
 than autonomous self-modification.
 
+## Record The Demo
+
+For a paced terminal recording without API latency:
+
+```bash
+./scripts/99_record_demo.sh
+```
+
+To record the live Claude Agent SDK path instead:
+
+```bash
+./scripts/99_record_demo.sh --agent-sdk
+```
+
 ## Judge Framing
 
 The full local research warehouse covers Korean equities from 1995-05-02 to

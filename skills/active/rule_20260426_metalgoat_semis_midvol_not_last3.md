@@ -1,12 +1,14 @@
 ---
 rule_id: rule_20260426_metalgoat_semis_midvol_not_last3
+version: 0.1
 status: active
-rule_type: suppression
-cluster_id: metalgoat_semis_midvol_not_last3
-created_date: '2026-04-26'
-description: Suppress Buy recommendations for semiconductor trades with
-  MetalGoat month pillar, mid-range 20-day volatility, and jieqi_zone outside
-  last_3.
+created_at: '2026-04-26T10:22:49.935258+00:00'
+spawned_from_failures:
+- trade_metalgoat_semis_000
+- trade_metalgoat_semis_001
+- trade_metalgoat_semis_002
+- trade_metalgoat_semis_003
+- trade_metalgoat_semis_004
 trigger_conditions:
 - feature: signal
   op: '='
@@ -26,45 +28,14 @@ trigger_conditions:
   op: not_in
   value:
   - last_3
-action:
-  type: suppress_trade
-  reason: Historical failure cluster showed losses for Metal Goat semiconductor
-    Buy trades outside the final three solar-term days.
-spawned_from_failures:
-- trade_metalgoat_semis_000
-- trade_metalgoat_semis_001
-- trade_metalgoat_semis_002
-- trade_metalgoat_semis_003
-- trade_metalgoat_semis_004
-- trade_metalgoat_semis_005
-- trade_metalgoat_semis_006
-- trade_metalgoat_semis_007
-- trade_metalgoat_semis_008
-- trade_metalgoat_semis_009
-- trade_metalgoat_semis_010
-- trade_metalgoat_semis_011
-- trade_metalgoat_semis_012
-- trade_metalgoat_semis_013
-- trade_metalgoat_semis_014
-- trade_metalgoat_semis_015
-- trade_metalgoat_semis_016
-- trade_metalgoat_semis_017
-- trade_metalgoat_semis_018
-- trade_metalgoat_semis_019
-cluster_evidence:
-  failure_count: 71
-  avg_failed_return_pct: -5.5321
-  worst_return_pct: -9.7842
+suppression_logic: suppress_buy_signal
 domain_context:
-  saju_feature_type: domain_informed_categorical_feature
-  validation_note: Saju and Yi-derived fields are categorical features for
-    empirical validation, not claims that Saju predicts stock prices.
-  month_pillar:
-    validation_key: MetalGoat
-    hanja: 辛未
+  note: Saju and Yeokhak fields are domain-informed categorical features for empirical validation, not claims that Saju predicts stock prices.
+  validation_key_policy: Compact English keys are validated; original Hanja is preserved for provenance.
+  observed_month_pillars:
+  - validation_key: MetalGoat
+    original_hanja: 辛未
     english_label: Metal Goat
-  notation_note: Compact English keys are used for machine validation. Original
-    Hanja is preserved for provenance.
 backtest_stats:
   historical_matches: 75
   cluster_precision: 0.9467
@@ -78,17 +49,17 @@ backtest_stats:
   oos_2024_2025_holds: true
 ---
 
+# Rule: suppress Metal Goat semiconductor mid-vol buys
+
 ## Why this rule exists
+Suppress Metal Goat semiconductor buys outside the final three solar-term days.
 
-This active rule was drafted from a clustered set of failed simulated trades. The cluster contained Buy recommendations in the semiconductor sector where the month pillar categorical feature was MetalGoat, original Hanja 辛未, and 20-day volatility was between 0.6 and 1.2. These failures occurred when `jieqi_zone` was not `last_3`.
-
-The rule preserves provenance from the failed trade IDs and the original Saju notation. It does not assume that Saju predicts prices. It treats the month pillar as a domain-informed categorical feature that passed empirical validation before deployment.
+The latest failure cluster contains 71 failed trades.
+Average failed T+5 return: -5.5321%.
 
 ## What it does
-
-If a new recommendation is a Buy for `Semiconductors and Semiconductor Equipment`, has `month_pillar = MetalGoat`, has `volatility_20` between 0.6 and 1.2, and has `jieqi_zone` outside `last_3`, this active rule suppresses the trade.
-
-The validator replaced the placeholder backtest statistics and promoted this rule to active.
+When the Strategy Orchestrator emits a buy recommendation matching the trigger
+conditions, Risk Guardian suppresses it and records this rule id as provenance.
 
 ## Validation Result
 

@@ -99,16 +99,16 @@ the historical backtest remains the final authority.
    - Stage 4: Backtest gate
    - Stage 5: Deployment
 
-3. Run the reproducible command:
+3. Run the paced, API-free recording script:
 
    ```bash
-   python scripts/03_run_loop.py
+   ./scripts/99_record_demo.sh
    ```
 
-4. Run the Claude Agent SDK path:
+4. Mention the optional Claude Agent SDK path:
 
    ```bash
-   python scripts/03_run_loop.py --agent-sdk
+   ./scripts/99_record_demo.sh --agent-sdk
    ```
 
 5. Open the generated files:
@@ -129,7 +129,7 @@ python -m venv .venv
 source .venv/bin/activate
 pip install -r requirements.txt
 python scripts/03_run_loop.py
-python scripts/03_run_loop.py --agent-sdk
+./scripts/99_record_demo.sh
 ```
 
 Expected result:

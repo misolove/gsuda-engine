@@ -28,7 +28,7 @@ Stage 1 logs simulated recommendations with technical indicators, Saju pillars, 
 
 8
 00:01:20,000 --> 00:01:35,000
-Stage 2 tags T+5 outcomes. Stage 3 clusters failures and uses Claude Agent SDK to draft candidate skill files.
+Stage 2 tags T+5 outcomes. Stage 3 clusters failures and drafts candidate skill files using the API-free path for this recording.
 
 9
 00:01:35,000 --> 00:01:52,000
