@@ -9,7 +9,7 @@ fi
 
 INPUT_VIDEO="$1"
 OUTPUT_VIDEO="$2"
-SUBTITLE_FILE="${3:-demo/demo_subtitles_draft.srt}"
+SUBTITLE_FILE="${3:-demo/demo_subtitles_final.srt}"
 
 if [[ ! -f "$INPUT_VIDEO" ]]; then
   printf "Input video not found: %s\n" "$INPUT_VIDEO" >&2

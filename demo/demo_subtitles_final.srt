@@ -1,0 +1,119 @@
+1
+00:00:00,000 --> 00:00:07,500
+gsuda-engine is a provenance-first
+self-evolving trading loop.
+
+2
+00:00:07,500 --> 00:00:15,000
+It turns failed trading outcomes
+into validated risk rules.
+
+3
+00:00:15,000 --> 00:00:22,500
+Built from 23 years of Korean
+securities-system experience.
+
+4
+00:00:22,500 --> 00:00:30,000
+And 13 years of Saju and Yeokhak
+study as feature engineering.
+
+5
+00:00:30,000 --> 00:00:37,500
+This is not fortune-telling.
+Every rule must pass validation.
+
+6
+00:00:37,500 --> 00:00:45,000
+The recording uses the API-free path
+for fast, reproducible judging.
+
+7
+00:00:45,000 --> 00:00:52,500
+The command runs the full closed loop:
+trade log, outcomes, clusters, rules.
+
+8
+00:00:52,500 --> 00:01:00,000
+Stage 1 logs full feature vectors:
+technicals, Saju pillars, and Hanja.
+
+9
+00:01:00,000 --> 00:01:07,500
+Stage 2 tags T+5 outcomes:
+wins, losses, and stopped-out trades.
+
+10
+00:01:07,500 --> 00:01:15,000
+Stage 3 clusters failures and drafts
+candidate YAML plus markdown skills.
+
+11
+00:01:15,000 --> 00:01:22,500
+Stage 4 validates each rule against
+historical matches and winner damage.
+
+12
+00:01:22,500 --> 00:01:30,000
+Result: one rule is promoted,
+and one rule is quarantined.
+
+13
+00:01:30,000 --> 00:01:37,500
+The active rule is now a Risk Guardian
+skill loaded from `skills/active`.
+
+14
+00:01:37,500 --> 00:01:45,000
+Its judge-facing Saju label is English:
+Metal Goat.
+
+15
+00:01:45,000 --> 00:01:52,500
+The machine validation key is compact:
+MetalGoat.
+
+16
+00:01:52,500 --> 00:02:00,000
+The original Hanja, 辛未, is preserved
+as domain provenance.
+
+17
+00:02:00,000 --> 00:02:07,500
+The rule records trigger conditions,
+failure cases, and backtest statistics.
+
+18
+00:02:07,500 --> 00:02:15,000
+It passed the validation gate,
+so Risk Guardian can deploy it.
+
+19
+00:02:15,000 --> 00:02:22,500
+The quarantined rule shows why
+the gate matters.
+
+20
+00:02:22,500 --> 00:02:30,000
+It matched history, but damaged
+too many winning trades.
+
+21
+00:02:30,000 --> 00:02:37,500
+So the system keeps it visible,
+but blocks deployment.
+
+22
+00:02:37,500 --> 00:02:45,000
+The local research warehouse spans
+Korean equities from 1995 to 2026.
+
+23
+00:02:45,000 --> 00:02:52,500
+It contains 11M+ enriched rows
+and 2,700+ stocks.
+
+24
+00:02:52,500 --> 00:03:00,000
+Claude drafts. Data validates.
+Risk Guardian deploys.
