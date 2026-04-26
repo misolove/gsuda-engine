@@ -139,12 +139,102 @@ regime, or seasonality features. The only question the engine asks is empirical:
 did this feature pattern repeatedly appear in failed trades, and does suppressing
 that pattern survive validation?
 
-The Yeokhak-inspired features are handled the same way. For example,
-`jieqi_zone` approximates solar-term timing. Instead of assuming a market regime
-changes instantly on a calendar boundary, the feature lets the validator test
-whether behavior differs near the beginning, middle, or end of a solar-term
-window. Hidden-stem proxy weights are also stored as numeric context, but they
-do not become rules unless the backtest gate approves them.
+## Solar Terms, Ingress Days, And Hidden Stems
+
+Three more Saju/Yeokhak concepts appear in the demo features: solar terms
+(`節氣`), ingress days (`節入日`), and hidden stems (`地藏干`). They are included as
+testable market-context features, not as mystical claims.
+
+### Solar Terms (`節氣`)
+
+East Asian calendars divide the solar year into 24 solar terms. You can think of
+them as seasonal markers, similar to "early spring", "grain rain", "summer
+solstice", or "major cold". In Korean Saju practice, month-level interpretation
+is usually anchored to solar terms rather than to the Western calendar month.
+
+For a non-Korean reader, the practical analogy is:
+
+> solar terms are a domain-specific seasonality calendar.
+
+In a trading system, seasonality calendars are common. A quant might test Monday
+effects, month-end effects, earnings windows, holiday effects, or macro calendar
+regimes. Here, solar-term timing is treated the same way: as a timestamp-derived
+categorical feature that must prove itself empirically.
+
+### Ingress Days (`節入日`)
+
+An ingress day is the point where one solar term begins. A naive feature would
+flip instantly from one label to the next on that date. Saju practice is more
+subtle: seasonal influence is often treated like weather. It changes through a
+transition, not like a light switch.
+
+The MVP encodes this idea with two simple fields:
+
+| Feature | Meaning |
+| --- | --- |
+| `month_progress` | Approximate progress through the current solar-term month |
+| `jieqi_zone` | A coarse zone such as `first_3`, `middle`, `last_4_5`, or `last_3` |
+
+That lets the validator ask a concrete question:
+
+> Does a rule behave differently near the beginning, middle, or end of a
+> solar-term window?
+
+The promoted demo rule uses this directly. It suppresses a semiconductor Buy
+pattern when `jieqi_zone` is **not** `last_3`. The exclusion matters: the replay
+contains counterexamples near the final three days, so the validated rule stays
+more conservative instead of suppressing the whole month-pillar pattern.
+
+### Hidden Stems (`地藏干`)
+
+Each Earthly Branch can contain hidden stems, meaning secondary element
+components traditionally associated with that branch. For example, the branch
+`未` (Goat) is commonly associated with hidden components such as `丁`, `乙`, and
+`己`, which correspond to Fire, Wood, and Earth contexts.
+
+The MVP does not ask Claude to interpret those symbols. It stores them as
+numeric proxy weights:
+
+| Feature | Example for `未` / Goat |
+| --- | --- |
+| `month_hidden_wood_weight` | `0.2` |
+| `month_hidden_fire_weight` | `0.3` |
+| `month_hidden_earth_weight` | `0.5` |
+| `month_hidden_metal_weight` | `0.0` |
+| `month_hidden_water_weight` | `0.0` |
+
+These proxy weights are part of the logged feature vector. They are available to
+failure clustering and validation, but they do not become live rules unless the
+backtest gate finds a useful, low-damage pattern.
+
+## What We Tested In The Demo
+
+The demo translates the above concepts into explicit columns, then validates
+candidate rules against simulated outcomes.
+
+| Domain concept | Engine feature | Example value |
+| --- | --- | --- |
+| Three-pillar Saju | `year_pillar`, `month_pillar`, `day_pillar` | `MetalGoat` |
+| Original notation | `month_pillar_hanja` | `辛未` |
+| Judge-readable label | `month_pillar_english` | `Metal Goat` |
+| Solar-term transition | `jieqi_zone` | `middle`, `last_3` |
+| Solar-term progress | `month_progress` | `0.52` |
+| Hidden-stem context | `month_hidden_*_weight` | Wood `0.2`, Fire `0.3`, Earth `0.5` |
+
+The successful rule was not "Saju says to sell." It was:
+
+1. A repeated failure cluster appeared in semiconductor Buy recommendations.
+2. The cluster shared `month_pillar = MetalGoat`, original Hanja `辛未`, mid-range
+   volatility, and solar-term timing outside `last_3`.
+3. Claude or the deterministic drafter produced a candidate suppression rule.
+4. The validator checked historical matches, cluster precision, winner damage,
+   and the 2024-2025 out-of-sample window.
+5. The rule passed and moved to `skills/active/`.
+
+The quarantined rule shows the opposite outcome. A broad high-volatility rule
+looked plausible, but it damaged too many winning trades, so it stayed in
+`skills/quarantined/`. This is the core safety property of the project: domain
+ideas may generate candidates, but only empirical validation can deploy them.
 
 ## Concrete Rule Example
 
