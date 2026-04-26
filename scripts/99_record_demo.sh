@@ -43,6 +43,10 @@ show_command() {
   printf "\n$ %s\n" "$*"
 }
 
+clear_screen() {
+  clear 2>/dev/null || true
+}
+
 show_excerpt() {
   local title="$1"
   local file="$2"
@@ -76,7 +80,7 @@ if [[ "${RUN_ARGS[*]:-}" == "--agent-sdk" ]]; then
   fi
 fi
 
-clear
+clear_screen
 banner "gsuda-engine recording script"
 cat <<TEXT
 This recording script is intentionally paced for a 4-5 minute demo.
@@ -93,7 +97,7 @@ Opening line:
 TEXT
 pause_for_recording "$LONG_PAUSE"
 
-clear
+clear_screen
 banner "Live demo: run the complete closed loop"
 if ((${#RUN_ARGS[@]})); then
   show_command "$PYTHON_BIN scripts/03_run_loop.py ${RUN_ARGS[*]}"

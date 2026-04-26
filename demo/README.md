@@ -6,6 +6,12 @@ Use the paced terminal script for the final screen recording:
 ./scripts/99_record_demo.sh
 ```
 
+For a one-minute terminal recording pass, shorten the pauses:
+
+```bash
+env DEMO_SHORT_PAUSE=2 DEMO_MEDIUM_PAUSE=4 DEMO_LONG_PAUSE=10 ./scripts/99_record_demo.sh
+```
+
 Use `demo/demo_subtitles_final.srt` as the English subtitle track. It is written
 so judges can understand the project without voice narration.
 
