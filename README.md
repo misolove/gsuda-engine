@@ -78,6 +78,38 @@ digestion, alertness, social schedules, news timing, opening/closing auctions,
 and local market sessions all shape attention and risk-taking. The Saju/Yeokhak
 view adds a traditional calendar layer to that same question.
 
+The traditional meridian clock maps the twelve Earthly Branch time windows to
+twelve regular meridians. In this README, the "human-function theme" column is a
+plain-English interpretation of the traditional model, and the "market-behavior
+analogy" column is how gsuda-engine would translate the concept into a
+testable feature hypothesis.
+
+| Earthly Branch | Clock Window | Meridian (Hanja / Korean) | English Label | Traditional Human-Function Theme | Market-Behavior Analogy |
+| --- | --- | --- | --- | --- | --- |
+| `子` Ja | 23:00-01:00 | `足少陽膽經` / 담경 | Gallbladder | Decision, courage, directional impulse | Conviction, risk initiation, overnight bias |
+| `丑` Chuk | 01:00-03:00 | `足厥陰肝經` / 간경 | Liver | Planning, flow, tension regulation | Strategy reset, rebalancing pressure |
+| `寅` In | 03:00-05:00 | `手太陰肺經` / 폐경 | Lung | Breath, boundary, intake and release | Sensitivity to new information, defensive posture |
+| `卯` Myo | 05:00-07:00 | `手陽明大腸經` / 대장경 | Large Intestine | Elimination, clearing, letting go | Closing stale narratives or positions |
+| `辰` Jin | 07:00-09:00 | `足陽明胃經` / 위경 | Stomach | Appetite, reception, material intake | Opening liquidity, appetite for exposure |
+| `巳` Sa | 09:00-11:00 | `足太陰脾經` / 비경 | Spleen | Assimilation, transformation, thought | Digesting news, converting data into conviction |
+| `午` O | 11:00-13:00 | `手少陰心經` / 심경 | Heart | Attention, expression, spirit, emotion | Visible sentiment, attention peak, crowd expression |
+| `未` Mi | 13:00-15:00 | `手太陽小腸經` / 소장경 | Small Intestine | Discernment, separating clear from unclear | Signal filtering, separating thesis from noise |
+| `申` Sin | 15:00-17:00 | `足太陽膀胱經` / 방광경 | Bladder | Endurance, storage and release, pressure | Close-time pressure, inventory and risk release |
+| `酉` Yu | 17:00-19:00 | `足少陰腎經` / 신경 | Kidney | Reserves, will, fear, deep energy | Reserve risk capacity, fear response |
+| `戌` Sul | 19:00-21:00 | `手厥陰心包經` / 심포경 | Pericardium | Emotional protection, social connection | Narrative contagion, protective crowd behavior |
+| `亥` Hae | 21:00-23:00 | `手少陽三焦經` / 삼초경 | Triple Burner / Sanjiao | Whole-system coordination, heat and fluid regulation | Cross-market coordination, liquidity rhythm |
+
+Example feature translation:
+
+```text
+Timestamp: 2025-06-10 10:15 KST
+Earthly Branch hour: 巳 (Sa, Snake)
+Meridian clock window: Spleen / 足太陰脾經
+Traditional theme: assimilation and thought
+Research hypothesis: market participants may be in a news-digestion phase
+Validation rule: only use it if historical trades show a repeatable pattern
+```
+
 The meridian-clock framing is one reason I treat year, month, and day pillars as
 more than labels. They are a hypothesis about collective human timing:
 
