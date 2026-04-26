@@ -19,13 +19,15 @@ def log_trade(connection: object, recommendation: object) -> str:
             trade_id, ts, symbol, sector, entry_price, stop_price, target_price,
             signal, rsi14, macd, macd_signal, bb_position, volatility_20,
             volume_ratio, golden_cross, d1, d2, year_pillar, month_pillar,
-            day_pillar, jieqi_zone, month_progress, month_hidden_wood_weight,
+            day_pillar, year_pillar_hanja, month_pillar_hanja, day_pillar_hanja,
+            year_pillar_english, month_pillar_english, day_pillar_english,
+            jieqi_zone, month_progress, month_hidden_wood_weight,
             month_hidden_fire_weight, month_hidden_earth_weight,
-            month_hidden_metal_weight, month_hidden_water_weight, sim_return_t5,
-            applied_rules, suppressed_by
+            month_hidden_metal_weight, month_hidden_water_weight,
+            sim_return_t5, applied_rules, suppressed_by
         )
         VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,
-                ?, ?, ?, ?, ?, ?, ?, ?, ?)
+                ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
         """,
         [
             str(trade_id),
@@ -48,6 +50,12 @@ def log_trade(connection: object, recommendation: object) -> str:
             features.get("year_pillar"),
             features.get("month_pillar"),
             features.get("day_pillar"),
+            features.get("year_pillar_hanja"),
+            features.get("month_pillar_hanja"),
+            features.get("day_pillar_hanja"),
+            features.get("year_pillar_english"),
+            features.get("month_pillar_english"),
+            features.get("day_pillar_english"),
             features.get("jieqi_zone"),
             features.get("month_progress"),
             features.get("month_hidden_wood_weight"),

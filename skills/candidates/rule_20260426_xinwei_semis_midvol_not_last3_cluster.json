@@ -60,12 +60,17 @@
       }
     ],
     "rationale": "Suppress XinWei semiconductor buys outside the final three solar-term days.",
+    "domain_context": {
+      "pillar_notation": "Romanized machine keys are validated; original Hanja is preserved for Saju provenance."
+    },
     "sample_rows": [
       {
         "trade_id": "trade_xinwei_semis_000",
         "return_pct": -8.3981,
         "sector": "Semiconductors and Semiconductor Equipment",
         "month_pillar": "XinWei",
+        "month_pillar_hanja": "辛未",
+        "month_pillar_english": "Metal Goat",
         "jieqi_zone": "first_3",
         "volatility_20": 0.8006
       },
@@ -74,6 +79,8 @@
         "return_pct": -0.888,
         "sector": "Semiconductors and Semiconductor Equipment",
         "month_pillar": "XinWei",
+        "month_pillar_hanja": "辛未",
+        "month_pillar_english": "Metal Goat",
         "jieqi_zone": "middle",
         "volatility_20": 1.1717
       },
@@ -82,6 +89,8 @@
         "return_pct": -8.9404,
         "sector": "Semiconductors and Semiconductor Equipment",
         "month_pillar": "XinWei",
+        "month_pillar_hanja": "辛未",
+        "month_pillar_english": "Metal Goat",
         "jieqi_zone": "last_4_5",
         "volatility_20": 1.1253
       },
@@ -90,6 +99,8 @@
         "return_pct": -6.3079,
         "sector": "Semiconductors and Semiconductor Equipment",
         "month_pillar": "XinWei",
+        "month_pillar_hanja": "辛未",
+        "month_pillar_english": "Metal Goat",
         "jieqi_zone": "first_3",
         "volatility_20": 0.7115
       },
@@ -98,6 +109,8 @@
         "return_pct": -8.2204,
         "sector": "Semiconductors and Semiconductor Equipment",
         "month_pillar": "XinWei",
+        "month_pillar_hanja": "辛未",
+        "month_pillar_english": "Metal Goat",
         "jieqi_zone": "middle",
         "volatility_20": 0.6359
       }

@@ -8,6 +8,21 @@ must pass a validation gate before Risk Guardian loads it. The project combines
 feature engineering. The claim is not that Saju predicts stocks; the claim is
 that domain-informed categorical features can be tested against market history.
 
+## Saju Notation
+
+Saju's native notation is Hanja, so the engine preserves it as provenance while
+using romanized machine keys for reproducible validation. For example:
+
+| Layer | Value |
+| --- | --- |
+| Machine key | `XinWei` |
+| Original Hanja | `辛未` |
+| English gloss | `Metal Goat` |
+
+Rules validate against the machine key, while generated skill files keep the
+Hanja and English gloss in `domain_context` so judges can see the original Saju
+structure without needing to read Chinese characters.
+
 ## Run The Demo
 
 ```bash
@@ -19,8 +34,8 @@ python scripts/03_run_loop.py
 
 The default path is deterministic and does not require an API key. It produces:
 
-- simulated recommendations with technical, year/month/day pillar, solar-term,
-  and hidden-stem proxy features
+- simulated recommendations with technical, year/month/day pillar, original
+  Hanja provenance, solar-term, and hidden-stem proxy features
 - T+5 outcome tagging
 - two failure clusters
 - one validated rule in `skills/active/`

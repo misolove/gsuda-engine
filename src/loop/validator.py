@@ -33,6 +33,12 @@ ALLOWED_FEATURES = {
     "year_pillar",
     "month_pillar",
     "day_pillar",
+    "year_pillar_hanja",
+    "month_pillar_hanja",
+    "day_pillar_hanja",
+    "year_pillar_english",
+    "month_pillar_english",
+    "day_pillar_english",
     "jieqi_zone",
     "month_progress",
     "month_hidden_wood_weight",
@@ -249,6 +255,10 @@ def _render_validation_language(body: str, result: ValidationResult) -> str:
         body = body.replace(
             "The placeholder backtest statistics are intentionally set to zero or false. The validator is responsible for replacing them after historical-match, cluster-precision, winner-damage, and 2024-2025 out-of-sample checks.",
             "The validator replaced the placeholder backtest statistics after historical-match, cluster-precision, winner-damage, and 2024-2025 out-of-sample checks.",
+        )
+        body = body.replace(
+            "The rule remains a candidate until the validator replaces the placeholder backtest statistics and confirms that the suppression passes the historical-match, cluster-precision, winner-damage, and 2024-2025 out-of-sample gates.",
+            "The validator replaced the placeholder backtest statistics and confirmed that the suppression passes the historical-match, cluster-precision, winner-damage, and 2024-2025 out-of-sample gates.",
         )
         replacement = (
             "This rule passed the validation gate and was promoted to active status. "

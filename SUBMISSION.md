@@ -37,6 +37,11 @@ systems and 13 years studying Saju/Yeokhak. The claim is not that Saju predicts
 stock prices. The claim is that domain-informed feature engineering can be
 tested empirically inside a gated agentic workflow.
 
+Saju's native notation is Hanja, so the engine preserves original pillar labels
+such as `辛未` as provenance while validating romanized machine keys such as
+`XinWei`. Generated rules also include an English gloss such as `Metal Goat`, so
+judges can inspect the logic without prior Saju knowledge.
+
 The public demo is compact and reproducible. The full local research warehouse
 covers Korean equities from 1995-05-02 to 2026-04-24, with 11M+ enriched rows
 and 2,700+ stocks. The validation design is built around this 30-year historical
@@ -82,6 +87,9 @@ the historical backtest remains the final authority.
    "gsuda-engine is a self-evolving trading loop built from 23 years of Korean
    securities systems and 13 years of Yeokhak study. Claude drafts rules from
    failed trades, but no rule deploys without passing the validation gate."
+
+   "The Saju layer preserves original Hanja notation, but the validator uses
+   romanized machine keys so the system remains inspectable and reproducible."
 
 2. Show the five-stage loop:
 

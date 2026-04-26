@@ -20,6 +20,12 @@ CREATE TABLE IF NOT EXISTS trade_log (
     year_pillar     VARCHAR,
     month_pillar    VARCHAR,
     day_pillar      VARCHAR,
+    year_pillar_hanja   VARCHAR,
+    month_pillar_hanja  VARCHAR,
+    day_pillar_hanja    VARCHAR,
+    year_pillar_english   VARCHAR,
+    month_pillar_english  VARCHAR,
+    day_pillar_english    VARCHAR,
     jieqi_zone      VARCHAR,
     month_progress  DOUBLE,
     month_hidden_wood_weight   DOUBLE,
@@ -36,6 +42,12 @@ ALTER TABLE trade_log ADD COLUMN IF NOT EXISTS signal VARCHAR;
 ALTER TABLE trade_log ADD COLUMN IF NOT EXISTS year_pillar VARCHAR;
 ALTER TABLE trade_log ADD COLUMN IF NOT EXISTS month_pillar VARCHAR;
 ALTER TABLE trade_log ADD COLUMN IF NOT EXISTS day_pillar VARCHAR;
+ALTER TABLE trade_log ADD COLUMN IF NOT EXISTS year_pillar_hanja VARCHAR;
+ALTER TABLE trade_log ADD COLUMN IF NOT EXISTS month_pillar_hanja VARCHAR;
+ALTER TABLE trade_log ADD COLUMN IF NOT EXISTS day_pillar_hanja VARCHAR;
+ALTER TABLE trade_log ADD COLUMN IF NOT EXISTS year_pillar_english VARCHAR;
+ALTER TABLE trade_log ADD COLUMN IF NOT EXISTS month_pillar_english VARCHAR;
+ALTER TABLE trade_log ADD COLUMN IF NOT EXISTS day_pillar_english VARCHAR;
 ALTER TABLE trade_log ADD COLUMN IF NOT EXISTS jieqi_zone VARCHAR;
 ALTER TABLE trade_log ADD COLUMN IF NOT EXISTS month_progress DOUBLE;
 ALTER TABLE trade_log ADD COLUMN IF NOT EXISTS month_hidden_wood_weight DOUBLE;

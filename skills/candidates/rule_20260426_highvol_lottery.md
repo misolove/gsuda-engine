@@ -2,7 +2,6 @@
 rule_id: rule_20260426_highvol_lottery
 status: candidate
 cluster_id: highvol_lottery
-description: Suppress Buy recommendations when 20-day volatility is at least 2.0.
 trigger_conditions:
   - feature: signal
     op: "="
@@ -12,7 +11,7 @@ trigger_conditions:
     value: 2.0
 action:
   type: suppress_trade
-  reason: High volatility Buy recommendations in this failure cluster showed repeated loss patterns and require empirical validation before deployment.
+  reason: highvol_lottery_failure_cluster
 spawned_from_failures:
   - trade_highvol_000
   - trade_highvol_001
@@ -34,62 +33,91 @@ spawned_from_failures:
   - trade_highvol_027
   - trade_highvol_030
   - trade_highvol_031
-cluster_evidence:
+failure_summary:
   failure_count: 36
   avg_failed_return_pct: -6.5823
   worst_return_pct: -11.9101
   rationale: A tempting high-volatility suppression that should be quarantined for winner damage.
-sample_rows:
+domain_context:
+  note: Saju and Yi-derived values are domain-informed categorical features for empirical validation, not claims that Saju predicts stock prices.
+  provenance_policy: Romanized machine keys are validated; original Hanja is preserved for Saju provenance.
+  observed_month_pillars:
+    - romanized: GengChen
+      hanja: 庚辰
+      english: Metal Dragon
+    - romanized: RenShen
+      hanja: 壬申
+      english: Water Monkey
+    - romanized: JiaXu
+      hanja: 甲戌
+      english: Wood Dog
+  observed_jieqi_zones:
+    - first_3
+    - middle
+    - last_3
+sample_provenance:
   - trade_id: trade_highvol_000
     return_pct: -11.2455
     sector: Electrical Equipment
-    month_pillar: GengChen
+    month_pillar:
+      romanized: GengChen
+      hanja: 庚辰
+      english: Metal Dragon
     jieqi_zone: first_3
     volatility_20: 2.9124
   - trade_id: trade_highvol_001
     return_pct: -9.2562
     sector: Software
-    month_pillar: RenShen
+    month_pillar:
+      romanized: RenShen
+      hanja: 壬申
+      english: Water Monkey
     jieqi_zone: middle
     volatility_20: 3.2445
   - trade_id: trade_highvol_002
     return_pct: -8.6611
     sector: Secondary Batteries
-    month_pillar: JiaXu
+    month_pillar:
+      romanized: JiaXu
+      hanja: 甲戌
+      english: Wood Dog
     jieqi_zone: last_3
     volatility_20: 2.2378
   - trade_id: trade_highvol_005
     return_pct: -10.6871
     sector: Software
-    month_pillar: JiaXu
+    month_pillar:
+      romanized: JiaXu
+      hanja: 甲戌
+      english: Wood Dog
     jieqi_zone: last_3
     volatility_20: 3.397
   - trade_id: trade_highvol_006
     return_pct: -1.7532
     sector: Secondary Batteries
-    month_pillar: GengChen
+    month_pillar:
+      romanized: GengChen
+      hanja: 庚辰
+      english: Metal Dragon
     jieqi_zone: first_3
     volatility_20: 2.7291
 backtest_stats:
-  historical_matches: 0
+  historical_match_count: 0
   cluster_precision: 0.0
+  winner_damage_count: 0
   winner_damage_pct: 0.0
-  out_of_sample_2024_2025_pass: false
-  approved_for_active: false
-notes:
-  - This rule is a candidate only.
-  - Saju and Yi-related fields are domain-informed categorical features and require empirical validation.
-  - The validator must replace placeholder backtest statistics before any deployment decision.
+  out_of_sample_2024_2025_passed: false
+  validation_passed: false
 ---
 
 ## Why this rule exists
 
-This candidate was spawned from the `highvol_lottery` failed-trade cluster. The cluster contains Buy recommendations with `volatility_20 >= 2.0` that produced repeated negative outcomes, with an average failed return of -6.5823 percent and a worst observed return of -11.9101 percent.
+This candidate rule was spawned from the `highvol_lottery` failure cluster, where 36 failed Buy trades averaged -6.5823 percent and the worst observed return was -11.9101 percent. The cluster suggests that Buy trades with `volatility_20 >= 2.0` may include lottery-like high-volatility setups that produced repeated losses in the replay sample.
 
-The cluster rationale explicitly warns that this suppression may cause winner damage. For that reason, the rule should remain a candidate until the validation gate measures historical matches, cluster precision, winner damage, and 2024-2025 out-of-sample behavior.
+The cluster rationale also warns that this suppression may damage winners. For that reason, this rule must remain a candidate until the validator measures historical match quality, cluster precision, winner damage, and 2024-2025 out-of-sample behavior.
 
 ## What it does
 
-When a trade recommendation has `signal = Buy` and `volatility_20 >= 2.0`, this rule proposes suppressing the trade.
+When a proposed trade has `signal = Buy` and `volatility_20 >= 2.0`, this rule proposes suppressing the trade before execution.
 
-This is not a claim that Saju or Yi-derived features predict stock prices. Any Saju-related fields in the evidence, such as `month_pillar` or `jieqi_zone`, are treated only as domain-informed categorical features that require empirical validation before use in an active trading rule.
+The Saju-related fields in the provenance, including `GengChen` / `庚辰` / `Metal Dragon`, `RenShen` / `壬申` / `Water Monkey`, and `JiaXu` / `甲戌` / `Wood Dog`, are preserved as domain-informed categorical features. They are not treated as predictive claims. Their value depends on empirical validation by the backtest gate.

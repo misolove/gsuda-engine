@@ -2,11 +2,33 @@
 rule_id: rule_20260426_xinwei_semis_midvol_not_last3
 status: candidate
 cluster_id: xinwei_semis_midvol_not_last3
-action: suppress_trade
-decision: block
-scope:
-  market: Korean equities
-  mode: simulated_historical_replay
+rule_type: suppression
+created_date: "2026-04-26"
+provenance:
+  spawned_from_failures:
+    - trade_xinwei_semis_000
+    - trade_xinwei_semis_001
+    - trade_xinwei_semis_002
+    - trade_xinwei_semis_003
+    - trade_xinwei_semis_004
+    - trade_xinwei_semis_005
+    - trade_xinwei_semis_006
+    - trade_xinwei_semis_007
+    - trade_xinwei_semis_008
+    - trade_xinwei_semis_009
+    - trade_xinwei_semis_010
+    - trade_xinwei_semis_011
+    - trade_xinwei_semis_012
+    - trade_xinwei_semis_013
+    - trade_xinwei_semis_014
+    - trade_xinwei_semis_015
+    - trade_xinwei_semis_016
+    - trade_xinwei_semis_017
+    - trade_xinwei_semis_018
+    - trade_xinwei_semis_019
+  failure_count: 71
+  avg_failed_return_pct: -5.5321
+  worst_return_pct: -9.7842
 trigger_conditions:
   - feature: signal
     op: "="
@@ -26,87 +48,34 @@ trigger_conditions:
     op: not_in
     value:
       - last_3
-spawned_from_failures:
-  - trade_xinwei_semis_000
-  - trade_xinwei_semis_001
-  - trade_xinwei_semis_002
-  - trade_xinwei_semis_003
-  - trade_xinwei_semis_004
-  - trade_xinwei_semis_005
-  - trade_xinwei_semis_006
-  - trade_xinwei_semis_007
-  - trade_xinwei_semis_008
-  - trade_xinwei_semis_009
-  - trade_xinwei_semis_010
-  - trade_xinwei_semis_011
-  - trade_xinwei_semis_012
-  - trade_xinwei_semis_013
-  - trade_xinwei_semis_014
-  - trade_xinwei_semis_015
-  - trade_xinwei_semis_016
-  - trade_xinwei_semis_017
-  - trade_xinwei_semis_018
-  - trade_xinwei_semis_019
-cluster_evidence:
-  failure_count: 71
-  avg_failed_return_pct: -5.5321
-  worst_return_pct: -9.7842
-  sample_failed_trades:
-    - trade_id: trade_xinwei_semis_000
-      return_pct: -8.3981
-      sector: Semiconductors and Semiconductor Equipment
-      month_pillar: XinWei
-      jieqi_zone: first_3
-      volatility_20: 0.8006
-    - trade_id: trade_xinwei_semis_001
-      return_pct: -0.888
-      sector: Semiconductors and Semiconductor Equipment
-      month_pillar: XinWei
-      jieqi_zone: middle
-      volatility_20: 1.1717
-    - trade_id: trade_xinwei_semis_002
-      return_pct: -8.9404
-      sector: Semiconductors and Semiconductor Equipment
-      month_pillar: XinWei
-      jieqi_zone: last_4_5
-      volatility_20: 1.1253
-    - trade_id: trade_xinwei_semis_003
-      return_pct: -6.3079
-      sector: Semiconductors and Semiconductor Equipment
-      month_pillar: XinWei
-      jieqi_zone: first_3
-      volatility_20: 0.7115
-    - trade_id: trade_xinwei_semis_004
-      return_pct: -8.2204
-      sector: Semiconductors and Semiconductor Equipment
-      month_pillar: XinWei
-      jieqi_zone: middle
-      volatility_20: 0.6359
+domain_context:
+  feature_family: saju_categorical
+  validation_note: Saju and solar-term fields are domain-informed categorical features and must be empirically validated before deployment. This rule does not claim that Saju predicts stock prices.
+  month_pillar:
+    romanized: XinWei
+    hanja: 辛未
+    english: Metal Goat
+  notation_note: Romanized machine keys are used for validation while original Hanja is preserved for provenance.
+action:
+  type: suppress_trade
+  applies_to_signal: Buy
+  reason: Suppress XinWei semiconductor buys outside the final three solar-term days when 20-day volatility is mid-range.
 backtest_stats:
-  historical_matches: 0
+  historical_match_count: 0
   cluster_precision: 0.0
-  winner_damage_pct: 0.0
+  winner_damage_rate: 0.0
   out_of_sample_2024_2025_passed: false
-  approved_for_active: false
-notes:
-  rationale: Suppress XinWei semiconductor buys outside the final three solar-term days.
-  validation_required: true
-  saju_disclaimer: Saju and Yi-derived fields are domain-informed categorical features and do not imply prediction of stock prices without empirical validation.
+  validation_passed: false
 ---
 
 ## Why this rule exists
 
-This candidate rule was drafted from a failed-trade cluster with 71 observed failures, an average failed return of -5.5321 percent, and a worst observed return of -9.7842 percent. The shared pattern is a Buy signal in the semiconductor sector during the XinWei month pillar, with mid-range 20-day volatility and a solar-term zone outside `last_3`.
+This candidate rule was drafted from a cluster of failed simulated trades in semiconductor names where Buy signals appeared during the XinWei month pillar, preserved as 辛未 and labeled Metal Goat, with mid-range 20-day volatility. The cluster showed repeated losses outside the final three solar-term days.
 
-The Saju and solar-term fields are treated only as categorical feature-engineering inputs. This rule must pass the validation gate before it can become active.
+The Saju and solar-term fields are treated only as domain-informed categorical features. They require empirical validation before any deployment decision.
 
 ## What it does
 
-When all trigger conditions match, this rule suppresses the trade recommendation. It blocks only Buy signals where:
+When a trade is a Buy signal for the Semiconductors and Semiconductor Equipment sector, with `month_pillar = XinWei`, `volatility_20` between `0.6` and `1.2`, and `jieqi_zone` not in `last_3`, this rule suppresses the trade.
 
-- `month_pillar` is `XinWei`
-- `sector` is `Semiconductors and Semiconductor Equipment`
-- `volatility_20` is between `0.6` and `1.2`
-- `jieqi_zone` is not `last_3`
-
-The placeholder backtest fields are intentionally unset and must be replaced by the validator.
+The validator must replace the placeholder backtest statistics and decide whether this candidate becomes active or quarantined.

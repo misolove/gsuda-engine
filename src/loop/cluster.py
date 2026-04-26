@@ -65,6 +65,8 @@ def cluster_failures(connection: object, min_size: int = 15) -> list[FailureClus
                 t.sim_return_t5,
                 t.sector,
                 t.month_pillar,
+                t.month_pillar_hanja,
+                t.month_pillar_english,
                 t.jieqi_zone,
                 t.volatility_20
             FROM failure_cases f
@@ -87,14 +89,19 @@ def cluster_failures(connection: object, min_size: int = 15) -> list[FailureClus
                     "worst_return_pct": round(min(returns), 4),
                     "trigger_conditions": trigger_conditions,
                     "rationale": rationale,
+                    "domain_context": {
+                        "pillar_notation": "Romanized machine keys are validated; original Hanja is preserved for Saju provenance.",
+                    },
                     "sample_rows": [
                         {
                             "trade_id": row[0],
                             "return_pct": row[1],
                             "sector": row[2],
                             "month_pillar": row[3],
-                            "jieqi_zone": row[4],
-                            "volatility_20": row[5],
+                            "month_pillar_hanja": row[4],
+                            "month_pillar_english": row[5],
+                            "jieqi_zone": row[6],
+                            "volatility_20": row[7],
                         }
                         for row in rows[:5]
                     ],

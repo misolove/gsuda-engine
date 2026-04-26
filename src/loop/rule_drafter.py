@@ -132,6 +132,7 @@ async def _draft_rule_with_agent_sdk(cluster: FailureCluster, project_root: Path
         machine-checkable YAML+markdown suppression rule. Preserve provenance.
         Do not claim that Saju predicts stock prices. Frame Saju/Yi features as
         domain-informed categorical features that still require empirical validation.
+        Preserve original Hanja notation when it appears in the cluster context.
         """
     ).strip()
 
@@ -158,6 +159,7 @@ async def _draft_rule_with_agent_sdk(cluster: FailureCluster, project_root: Path
         - status must be: candidate
         - Use the trigger_conditions already recommended in the cluster summary.
         - Include spawned_from_failures from the provided trade IDs.
+        - Include a domain_context section that shows the Hanja, romanized, and English pillar labels when provided.
         - Include placeholder backtest_stats with zeros/false; the validator will replace them.
         - After YAML, include a concise markdown explanation with "Why this rule exists" and "What it does".
         - Use ASCII punctuation only.

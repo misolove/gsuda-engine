@@ -22,6 +22,26 @@ from src.loop.rule_drafter import draft_rule
 from src.loop.trade_logger import log_trade
 from src.loop.validator import get_rule_id, render_validated_rule, validate_rule
 
+PILLARS = {
+    "BingWu": {"hanja": "丙午", "english": "Fire Horse"},
+    "YiSi": {"hanja": "乙巳", "english": "Wood Snake"},
+    "JiaZi": {"hanja": "甲子", "english": "Wood Rat"},
+    "YiChou": {"hanja": "乙丑", "english": "Wood Ox"},
+    "BingYin": {"hanja": "丙寅", "english": "Fire Tiger"},
+    "DingMao": {"hanja": "丁卯", "english": "Fire Rabbit"},
+    "WuChen": {"hanja": "戊辰", "english": "Earth Dragon"},
+    "JiSi": {"hanja": "己巳", "english": "Earth Snake"},
+    "GengWu": {"hanja": "庚午", "english": "Metal Horse"},
+    "XinWei": {"hanja": "辛未", "english": "Metal Goat"},
+    "RenShen": {"hanja": "壬申", "english": "Water Monkey"},
+    "GuiYou": {"hanja": "癸酉", "english": "Water Rooster"},
+    "GengChen": {"hanja": "庚辰", "english": "Metal Dragon"},
+    "JiaXu": {"hanja": "甲戌", "english": "Wood Dog"},
+    "JiMao": {"hanja": "己卯", "english": "Earth Rabbit"},
+    "RenChen": {"hanja": "壬辰", "english": "Water Dragon"},
+    "DingYou": {"hanja": "丁酉", "english": "Fire Rooster"},
+}
+
 
 def banner(title: str) -> None:
     print()
@@ -83,6 +103,12 @@ def _features(
         "year_pillar": year_pillar,
         "month_pillar": month_pillar,
         "day_pillar": day_pillar,
+        "year_pillar_hanja": PILLARS[year_pillar]["hanja"],
+        "month_pillar_hanja": PILLARS[month_pillar]["hanja"],
+        "day_pillar_hanja": PILLARS[day_pillar]["hanja"],
+        "year_pillar_english": PILLARS[year_pillar]["english"],
+        "month_pillar_english": PILLARS[month_pillar]["english"],
+        "day_pillar_english": PILLARS[day_pillar]["english"],
         "jieqi_zone": jieqi_zone,
         "month_progress": round(rng.uniform(0.08, 0.92), 4),
         "month_hidden_wood_weight": hidden[0],
@@ -240,7 +266,7 @@ def main() -> None:
         for rec in recs:
             log_trade(con, rec)
         print(f"Logged {len(recs)} simulated recommendations with full feature vectors.")
-        print("Feature emphasis: year/month/day pillars, jieqi_zone, hidden-stem weights, technicals.")
+        print("Feature emphasis: year/month/day pillars, original Hanja provenance, jieqi_zone, hidden-stem weights, technicals.")
 
         banner("Stage 2: Outcome tracker")
         counts = tag_trade_outcomes(con, holding_days=5)
