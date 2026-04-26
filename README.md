@@ -39,6 +39,92 @@ Each pillar combines two ideas:
 - an Earthly Branch, often mapped to an animal-like cycle label: Rat, Ox, Tiger,
   Goat, and so on
 
+The ten Heavenly Stems are:
+
+| # | Hanja | Korean | Romanization | Element | Polarity |
+| --- | --- | --- | --- | --- | --- |
+| 1 | `甲` | 갑 | Gap | Wood | Yang |
+| 2 | `乙` | 을 | Eul | Wood | Yin |
+| 3 | `丙` | 병 | Byeong | Fire | Yang |
+| 4 | `丁` | 정 | Jeong | Fire | Yin |
+| 5 | `戊` | 무 | Mu | Earth | Yang |
+| 6 | `己` | 기 | Gi | Earth | Yin |
+| 7 | `庚` | 경 | Gyeong | Metal | Yang |
+| 8 | `辛` | 신 | Sin | Metal | Yin |
+| 9 | `壬` | 임 | Im | Water | Yang |
+| 10 | `癸` | 계 | Gye | Water | Yin |
+
+The twelve Earthly Branches are:
+
+| # | Hanja | Korean | Romanization | English label |
+| --- | --- | --- | --- | --- |
+| 1 | `子` | 자 | Ja | Rat |
+| 2 | `丑` | 축 | Chuk | Ox |
+| 3 | `寅` | 인 | In | Tiger |
+| 4 | `卯` | 묘 | Myo | Rabbit |
+| 5 | `辰` | 진 | Jin | Dragon |
+| 6 | `巳` | 사 | Sa | Snake |
+| 7 | `午` | 오 | O | Horse |
+| 8 | `未` | 미 | Mi | Goat |
+| 9 | `申` | 신 | Sin | Monkey |
+| 10 | `酉` | 유 | Yu | Rooster |
+| 11 | `戌` | 술 | Sul | Dog |
+| 12 | `亥` | 해 | Hae | Pig |
+
+The stems and branches advance together. Because one wheel has 10 positions and
+the other has 12 positions, the combined cycle returns to the beginning after 60
+steps. This is the sexagenary cycle, or 60-gapja (`六十甲子`).
+
+```text
+01 甲子 Wood Rat    -> 02 乙丑 Wood Ox      -> 03 丙寅 Fire Tiger
+04 丁卯 Fire Rabbit -> 05 戊辰 Earth Dragon -> 06 己巳 Earth Snake
+07 庚午 Metal Horse -> 08 辛未 Metal Goat   -> 09 壬申 Water Monkey
+10 癸酉 Water Rooster
+   -> 11 甲戌 Wood Dog -> ... -> 60 癸亥 Water Pig -> back to 01 甲子
+```
+
+In other words, `辛未` is not an arbitrary symbol. It is the eighth position in
+a repeating 60-step calendar cycle: stem `辛` plus branch `未`, rendered in this
+project as `Metal Goat`.
+
+<details>
+<summary>Full 60-gapja cycle used as categorical notation</summary>
+
+| # | Hanja | English label | # | Hanja | English label |
+| --- | --- | --- | --- | --- | --- |
+| 01 | `甲子` | Wood Rat | 31 | `甲午` | Wood Horse |
+| 02 | `乙丑` | Wood Ox | 32 | `乙未` | Wood Goat |
+| 03 | `丙寅` | Fire Tiger | 33 | `丙申` | Fire Monkey |
+| 04 | `丁卯` | Fire Rabbit | 34 | `丁酉` | Fire Rooster |
+| 05 | `戊辰` | Earth Dragon | 35 | `戊戌` | Earth Dog |
+| 06 | `己巳` | Earth Snake | 36 | `己亥` | Earth Pig |
+| 07 | `庚午` | Metal Horse | 37 | `庚子` | Metal Rat |
+| 08 | `辛未` | Metal Goat | 38 | `辛丑` | Metal Ox |
+| 09 | `壬申` | Water Monkey | 39 | `壬寅` | Water Tiger |
+| 10 | `癸酉` | Water Rooster | 40 | `癸卯` | Water Rabbit |
+| 11 | `甲戌` | Wood Dog | 41 | `甲辰` | Wood Dragon |
+| 12 | `乙亥` | Wood Pig | 42 | `乙巳` | Wood Snake |
+| 13 | `丙子` | Fire Rat | 43 | `丙午` | Fire Horse |
+| 14 | `丁丑` | Fire Ox | 44 | `丁未` | Fire Goat |
+| 15 | `戊寅` | Earth Tiger | 45 | `戊申` | Earth Monkey |
+| 16 | `己卯` | Earth Rabbit | 46 | `己酉` | Earth Rooster |
+| 17 | `庚辰` | Metal Dragon | 47 | `庚戌` | Metal Dog |
+| 18 | `辛巳` | Metal Snake | 48 | `辛亥` | Metal Pig |
+| 19 | `壬午` | Water Horse | 49 | `壬子` | Water Rat |
+| 20 | `癸未` | Water Goat | 50 | `癸丑` | Water Ox |
+| 21 | `甲申` | Wood Monkey | 51 | `甲寅` | Wood Tiger |
+| 22 | `乙酉` | Wood Rooster | 52 | `乙卯` | Wood Rabbit |
+| 23 | `丙戌` | Fire Dog | 53 | `丙辰` | Fire Dragon |
+| 24 | `丁亥` | Fire Pig | 54 | `丁巳` | Fire Snake |
+| 25 | `戊子` | Earth Rat | 55 | `戊午` | Earth Horse |
+| 26 | `己丑` | Earth Ox | 56 | `己未` | Earth Goat |
+| 27 | `庚寅` | Metal Tiger | 57 | `庚申` | Metal Monkey |
+| 28 | `辛卯` | Metal Rabbit | 58 | `辛酉` | Metal Rooster |
+| 29 | `壬辰` | Water Dragon | 59 | `壬戌` | Water Dog |
+| 30 | `癸巳` | Water Snake | 60 | `癸亥` | Water Pig |
+
+</details>
+
 For example, the original Hanja pillar `辛未` is represented for judges as:
 
 | Representation | Example | Why it exists |
