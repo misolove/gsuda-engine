@@ -1,0 +1,7 @@
+duckdb
+anthropic
+claude-agent-sdk
+python-dotenv
+ruamel.yaml
+scikit-learn
+pandas

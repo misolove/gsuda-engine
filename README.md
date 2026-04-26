@@ -1,2 +1,53 @@
 # gsuda-engine
-Self-evolving trading agent that distills losing trades into validated rules using Claude Code. Built on Korean Saju + 30 years of KOSPI data.
+
+Provenance-first self-evolving trading loop for Korean equities.
+
+Claude drafts candidate risk rules from clustered failed trades, but every rule
+must pass a validation gate before Risk Guardian loads it. The project combines
+23 years of Korean securities-system experience with Saju/Yeokhak-inspired
+feature engineering. The claim is not that Saju predicts stocks; the claim is
+that domain-informed categorical features can be tested against market history.
+
+## Run The Demo
+
+```bash
+python -m venv .venv
+source .venv/bin/activate
+pip install -r requirements.txt
+python scripts/03_run_loop.py
+```
+
+The default path is deterministic and does not require an API key. It produces:
+
+- simulated recommendations with technical, year/month/day pillar, solar-term,
+  and hidden-stem proxy features
+- T+5 outcome tagging
+- two failure clusters
+- one validated rule in `skills/active/`
+- one rejected rule in `skills/quarantined/`
+
+## Optional Claude Agent SDK Path
+
+```bash
+export ANTHROPIC_API_KEY=...
+export CLAUDE_AGENT_MODEL=opus
+python scripts/03_run_loop.py --agent-sdk
+```
+
+With `--agent-sdk`, Claude Agent SDK drafts candidate YAML+markdown skill
+content and the local harness stores it under `skills/candidates/`. The
+validator still controls deployment, so this is gated self-improvement rather
+than autonomous self-modification.
+
+## Judge Framing
+
+The full local research warehouse covers Korean equities from 1995-05-02 to
+2026-04-24: 11M+ enriched rows and 2,700+ stocks. The public demo is compact and
+reproducible, while the validation design is built around 30-year historical
+coverage and a 2024-2025 out-of-sample gate.
+
+> Claude is creative; the validation gate is the judge.
+
+## Submission Draft
+
+See [SUBMISSION.md](SUBMISSION.md) for the hackathon form draft and demo script.
