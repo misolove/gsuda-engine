@@ -59,6 +59,39 @@ month, and day climate at each decision point. gsuda-engine does not assume this
 is true. It turns the idea into logged features, candidate rules, and validation
 gates so the market data can decide.
 
+## Conceptual Basis: Meridian Time And Attention
+
+Another conceptual source is traditional East Asian medicine. In that tradition,
+the human body is described through meridians (`經絡`) and a time-based flow of
+activity sometimes called the meridian clock or `子午流注`. Different organ or
+meridian systems are associated with different two-hour windows across the day.
+
+This project does not make medical claims. It uses this idea as a cultural and
+behavioral model for why time may matter:
+
+> if human attention, emotion, bodily state, and decision rhythm are not uniform
+> across time, then market behavior may also have time-dependent structure.
+
+For an English-speaking quant, the closest analogy is circadian rhythm plus
+market microstructure. Traders do not think and act in a vacuum. Sleep,
+digestion, alertness, social schedules, news timing, opening/closing auctions,
+and local market sessions all shape attention and risk-taking. The Saju/Yeokhak
+view adds a traditional calendar layer to that same question.
+
+The meridian-clock framing is one reason I treat year, month, and day pillars as
+more than labels. They are a hypothesis about collective human timing:
+
+- a person may have tendencies and life timing expressed through their pillars
+- a crowd may share a temporary "time climate" that nudges collective behavior
+- an asset may have its own lifecycle and may react differently under different
+  temporal climates
+
+In gsuda-engine, these ideas become features only when they can be logged:
+`year_pillar`, `month_pillar`, `day_pillar`, `jieqi_zone`, `month_progress`, and
+hidden-stem proxy weights. They become rules only after validation. The system is
+therefore allowed to ask unusual questions, but it is not allowed to deploy an
+answer without evidence.
+
 ## Saju/Yeokhak For Non-Korean Readers
 
 Saju, also called the Four Pillars, is an East Asian calendrical classification
