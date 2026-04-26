@@ -1,0 +1,75 @@
+1
+00:00:00,000 --> 00:00:07,000
+Hi, I am HyuckJae Lee, also known as gsuda.
+
+2
+00:00:07,000 --> 00:00:15,000
+This is gsuda-engine: a provenance-first self-evolving trading loop for Korean equities.
+
+3
+00:00:15,000 --> 00:00:23,000
+Claude drafts. Data validates. Risk Guardian deploys.
+
+4
+00:00:23,000 --> 00:00:35,000
+The project comes from 23 years operating Korean securities systems and 13 years studying Saju and Yeokhak.
+
+5
+00:00:35,000 --> 00:00:48,000
+The claim is not that Saju predicts stock prices. The claim is that domain-informed categorical features can be tested empirically.
+
+6
+00:00:48,000 --> 00:01:03,000
+This command runs the full closed loop: recommendations, outcomes, failure clustering, Claude rule drafting, validation, and deployment.
+
+7
+00:01:03,000 --> 00:01:20,000
+Stage 1 logs simulated recommendations with technical indicators, Saju pillars, original Hanja provenance, solar-term timing, and hidden-stem proxy weights.
+
+8
+00:01:20,000 --> 00:01:35,000
+Stage 2 tags T+5 outcomes. Stage 3 clusters failures and uses Claude Agent SDK to draft candidate skill files.
+
+9
+00:01:35,000 --> 00:01:52,000
+Stage 4 runs the validation gate. Stage 5 deploys only validated rules to Risk Guardian.
+
+10
+00:01:52,000 --> 00:02:08,000
+Here we have one promoted rule and one quarantined rule.
+
+11
+00:02:08,000 --> 00:02:28,000
+This is the promoted rule. The judge-facing label is English: Metal Goat.
+
+12
+00:02:28,000 --> 00:02:45,000
+The compact validation key is MetalGoat. The original Hanja, 辛未, is preserved as domain provenance.
+
+13
+00:02:45,000 --> 00:03:04,000
+The rule records the failed trade IDs, trigger conditions, and backtest statistics.
+
+14
+00:03:04,000 --> 00:03:25,000
+This rule was rejected by the validation gate. It matched enough history, but winner damage was too high.
+
+15
+00:03:25,000 --> 00:03:42,000
+That is the key design principle: gated self-improvement, not autonomous self-modification.
+
+16
+00:03:42,000 --> 00:04:02,000
+The public demo is compact and reproducible.
+
+17
+00:04:02,000 --> 00:04:25,000
+The broader local research warehouse covers Korean equities from 1995 to 2026, with more than 11 million enriched rows and more than 2,700 stocks.
+
+18
+00:04:25,000 --> 00:04:45,000
+The demo packages the core validation loop so judges can run it without private infrastructure.
+
+19
+00:04:45,000 --> 00:05:00,000
+gsuda-engine turns trading failures into validated behavioral memory. Claude drafts. Data validates. Risk Guardian deploys.

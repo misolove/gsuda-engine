@@ -52,6 +52,39 @@ def _format_conditions(conditions: list[dict[str, object]]) -> str:
     return "\n".join(lines)
 
 
+def _format_domain_context(cluster: FailureCluster) -> str:
+    sample_rows = cluster.summary.get("sample_rows", [])
+    observed: dict[str, dict[str, object]] = {}
+    if isinstance(sample_rows, list):
+        for row in sample_rows:
+            if not isinstance(row, dict):
+                continue
+            key = row.get("month_pillar")
+            if not key or key in observed:
+                continue
+            observed[str(key)] = {
+                "original_hanja": row.get("month_pillar_hanja", ""),
+                "english_label": row.get("month_pillar_english", ""),
+            }
+
+    lines = [
+        "domain_context:",
+        "  note: Saju and Yeokhak fields are domain-informed categorical features for empirical validation, not claims that Saju predicts stock prices.",
+        "  validation_key_policy: Compact English keys are validated; original Hanja is preserved for provenance.",
+    ]
+    if observed:
+        lines.append("  observed_month_pillars:")
+        for key, values in observed.items():
+            lines.extend(
+                [
+                    f"  - validation_key: {key}",
+                    f"    original_hanja: {values['original_hanja']}",
+                    f"    english_label: {values['english_label']}",
+                ]
+            )
+    return "\n".join(lines)
+
+
 def _draft_rule_with_mock(cluster: FailureCluster) -> str:
     created_at = datetime.now(timezone.utc).isoformat()
     spawned = "\n".join(f"  - {trade_id}" for trade_id in cluster.trade_ids[:5])
@@ -64,6 +97,7 @@ def _draft_rule_with_mock(cluster: FailureCluster) -> str:
         "highvol_lottery": "suppress high-volatility lottery buys",
     }.get(cluster.cluster_id, f"suppress {cluster.cluster_id}")
     rationale = str(cluster.summary.get("rationale", "Clustered losses share a repeated feature pattern."))
+    domain_context = _format_domain_context(cluster)
 
     return f"""---
 rule_id: rule_20260426_{cluster.cluster_id}
@@ -75,6 +109,7 @@ spawned_from_failures:
 trigger_conditions:
 {condition_text}
 suppression_logic: suppress_buy_signal
+{domain_context}
 backtest_stats:
   historical_matches: 0
   cluster_precision: 0.0

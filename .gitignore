@@ -14,5 +14,9 @@ data/*
 ubuntu/
 *.duckdb
 *.duckdb.wal
+*.mp4
+*.mov
+*.m4v
+recordings/
 
 .DS_Store
