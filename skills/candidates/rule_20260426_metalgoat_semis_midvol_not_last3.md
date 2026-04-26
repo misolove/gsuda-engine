@@ -2,7 +2,7 @@
 rule_id: rule_20260426_metalgoat_semis_midvol_not_last3
 version: 0.1
 status: candidate
-created_at: 2026-04-26T10:22:49.935258+00:00
+created_at: 2026-04-26T00:00:00+00:00
 spawned_from_failures:
   - trade_metalgoat_semis_000
   - trade_metalgoat_semis_001

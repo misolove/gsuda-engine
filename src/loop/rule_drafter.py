@@ -4,7 +4,6 @@ from __future__ import annotations
 
 import asyncio
 import json
-from datetime import datetime, timezone
 from pathlib import Path
 from textwrap import dedent
 
@@ -86,7 +85,7 @@ def _format_domain_context(cluster: FailureCluster) -> str:
 
 
 def _draft_rule_with_mock(cluster: FailureCluster) -> str:
-    created_at = datetime.now(timezone.utc).isoformat()
+    created_at = "2026-04-26T00:00:00+00:00"
     spawned = "\n".join(f"  - {trade_id}" for trade_id in cluster.trade_ids[:5])
     conditions = cluster.summary.get("trigger_conditions", [])
     condition_text = _format_conditions(conditions if isinstance(conditions, list) else [])

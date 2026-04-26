@@ -2,7 +2,7 @@
 rule_id: rule_20260426_highvol_lottery
 version: 0.1
 status: candidate
-created_at: 2026-04-26T10:22:49.940446+00:00
+created_at: 2026-04-26T00:00:00+00:00
 spawned_from_failures:
   - trade_highvol_000
   - trade_highvol_001
