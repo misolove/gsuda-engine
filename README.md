@@ -110,6 +110,40 @@ Research hypothesis: market participants may be in a news-digestion phase
 Validation rule: only use it if historical trades show a repeatable pattern
 ```
 
+Crucially, the meridian clock is not treated as a standalone hour-of-day lookup.
+In the Yeokhak reading used here, an hourly meridian window is interpreted inside
+larger layers of time. The same `巳` Spleen meridian window can express
+differently under a different year pillar (`年柱`) or month pillar (`月柱`),
+because the year and month describe the broader "time climate" in which that
+hourly channel becomes active.
+
+| Layer | Traditional Label | Role In This Interpretation | How It Modulates Meridian Timing | Candidate Feature |
+| --- | --- | --- | --- | --- |
+| Year | `年柱` year pillar | Macro climate of the period | Sets the long-wave background that may make certain meridian themes more or less visible across the year | `year_pillar x meridian_branch` |
+| Month | `月柱` month pillar | Seasonal operating climate | Uses solar-term seasonality to amplify, soften, or redirect the active meridian theme | `month_pillar x jieqi_zone x meridian_branch` |
+| Day | `日柱` day pillar | Immediate decision-day climate | Changes how the same hour window is expressed on a particular trading day | `day_pillar x meridian_branch` |
+| Hour | `時支` hour branch / `子午流注` | Active channel of the moment | Identifies which meridian theme is foregrounded in that two-hour window | `meridian_branch`, `meridian_name` |
+
+For example, `巳` hour may point to the Spleen meridian theme of assimilation and
+thought. But gsuda-engine would not read that theme alone. It would ask:
+
+- What is the year pillar background: is the market in a broad risk-seeking,
+  defensive, dispersive, or consolidating climate?
+- What is the month pillar and solar-term position: is the current season
+  supporting digestion of information, excessive heat, contraction, or transition?
+- What is the day pillar: does today's local time climate reinforce or conflict
+  with the hour's meridian theme?
+
+In market terms, this creates interaction features rather than mystical labels.
+The research target is not "Spleen hour predicts price." The target is:
+
+```text
+year climate + month/solar-term climate + day climate + meridian window
+=> possible shift in collective attention, risk appetite, digestion of news,
+   and timing of position changes
+=> candidate rule only if historical validation supports it
+```
+
 The meridian-clock framing is one reason I treat year, month, and day pillars as
 more than labels. They are a hypothesis about collective human timing:
 
@@ -118,11 +152,14 @@ more than labels. They are a hypothesis about collective human timing:
 - an asset may have its own lifecycle and may react differently under different
   temporal climates
 
-In gsuda-engine, these ideas become features only when they can be logged:
-`year_pillar`, `month_pillar`, `day_pillar`, `jieqi_zone`, `month_progress`, and
-hidden-stem proxy weights. They become rules only after validation. The system is
-therefore allowed to ask unusual questions, but it is not allowed to deploy an
-answer without evidence.
+In the hackathon MVP, the implemented time features are `year_pillar`,
+`month_pillar`, `day_pillar`, `jieqi_zone`, `month_progress`, and hidden-stem
+proxy weights. The meridian-clock interaction layer above is documented as the
+next validation layer: it would be logged as fields such as `meridian_branch`,
+`meridian_name`, and pillar-by-meridian interaction keys before any rule can use
+it. They become rules only after validation. The system is therefore allowed to
+ask unusual questions, but it is not allowed to deploy an answer without
+evidence.
 
 ## Saju/Yeokhak For Non-Korean Readers
 
