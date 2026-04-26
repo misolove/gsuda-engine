@@ -21,10 +21,10 @@ def cluster_failures(connection: object, min_size: int = 15) -> list[FailureClus
 
     specs = [
         (
-            "xinwei_semis_midvol_not_last3",
+            "metalgoat_semis_midvol_not_last3",
             """
             signal = 'Buy'
-            AND month_pillar = 'XinWei'
+            AND month_pillar = 'MetalGoat'
             AND sector = 'Semiconductors and Semiconductor Equipment'
             AND volatility_20 >= 0.6
             AND volatility_20 < 1.2
@@ -32,7 +32,7 @@ def cluster_failures(connection: object, min_size: int = 15) -> list[FailureClus
             """,
             [
                 {"feature": "signal", "op": "=", "value": "Buy"},
-                {"feature": "month_pillar", "op": "=", "value": "XinWei"},
+                {"feature": "month_pillar", "op": "=", "value": "MetalGoat"},
                 {
                     "feature": "sector",
                     "op": "=",
@@ -41,7 +41,7 @@ def cluster_failures(connection: object, min_size: int = 15) -> list[FailureClus
                 {"feature": "volatility_20", "op": "between", "value": [0.6, 1.2]},
                 {"feature": "jieqi_zone", "op": "not_in", "value": ["last_3"]},
             ],
-            "Suppress XinWei semiconductor buys outside the final three solar-term days.",
+            "Suppress Metal Goat semiconductor buys outside the final three solar-term days.",
         ),
         (
             "highvol_lottery",
@@ -90,7 +90,7 @@ def cluster_failures(connection: object, min_size: int = 15) -> list[FailureClus
                     "trigger_conditions": trigger_conditions,
                     "rationale": rationale,
                     "domain_context": {
-                        "pillar_notation": "Romanized machine keys are validated; original Hanja is preserved for Saju provenance.",
+                        "pillar_notation": "Compact English keys are validated; original Hanja is preserved for Saju provenance.",
                     },
                     "sample_rows": [
                         {

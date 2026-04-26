@@ -60,7 +60,7 @@ def _draft_rule_with_mock(cluster: FailureCluster) -> str:
     if not condition_text:
         condition_text = '  - feature: volatility_20\n    op: ">="\n    value: 2.0'
     title = {
-        "xinwei_semis_midvol_not_last3": "suppress XinWei semiconductor mid-vol buys",
+        "metalgoat_semis_midvol_not_last3": "suppress Metal Goat semiconductor mid-vol buys",
         "highvol_lottery": "suppress high-volatility lottery buys",
     }.get(cluster.cluster_id, f"suppress {cluster.cluster_id}")
     rationale = str(cluster.summary.get("rationale", "Clustered losses share a repeated feature pattern."))
@@ -159,7 +159,7 @@ async def _draft_rule_with_agent_sdk(cluster: FailureCluster, project_root: Path
         - status must be: candidate
         - Use the trigger_conditions already recommended in the cluster summary.
         - Include spawned_from_failures from the provided trade IDs.
-        - Include a domain_context section that shows the Hanja, romanized, and English pillar labels when provided.
+        - Include a domain_context section that shows the compact English validation key, original Hanja, and English display label when provided.
         - Include placeholder backtest_stats with zeros/false; the validator will replace them.
         - After YAML, include a concise markdown explanation with "Why this rule exists" and "What it does".
         - Use ASCII punctuation only.

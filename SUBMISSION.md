@@ -38,9 +38,9 @@ stock prices. The claim is that domain-informed feature engineering can be
 tested empirically inside a gated agentic workflow.
 
 Saju's native notation is Hanja, so the engine preserves original pillar labels
-such as `辛未` as provenance while validating romanized machine keys such as
-`XinWei`. Generated rules also include an English gloss such as `Metal Goat`, so
-judges can inspect the logic without prior Saju knowledge.
+such as `辛未` as provenance while making the English gloss, such as `Metal Goat`,
+the judge-facing label. The validator uses compact English keys such as
+`MetalGoat`, so judges can inspect the logic without prior Saju knowledge.
 
 The public demo is compact and reproducible. The full local research warehouse
 covers Korean equities from 1995-05-02 to 2026-04-24, with 11M+ enriched rows
@@ -89,7 +89,7 @@ the historical backtest remains the final authority.
    failed trades, but no rule deploys without passing the validation gate."
 
    "The Saju layer preserves original Hanja notation, but the validator uses
-   romanized machine keys so the system remains inspectable and reproducible."
+   compact English keys so the system remains inspectable and reproducible."
 
 2. Show the five-stage loop:
 
@@ -113,8 +113,8 @@ the historical backtest remains the final authority.
 
 5. Open the generated files:
 
-   - `skills/candidates/rule_20260426_xinwei_semis_midvol_not_last3.md`
-   - `skills/active/rule_20260426_xinwei_semis_midvol_not_last3.md`
+   - `skills/candidates/rule_20260426_metalgoat_semis_midvol_not_last3.md`
+   - `skills/active/rule_20260426_metalgoat_semis_midvol_not_last3.md`
    - `skills/quarantined/rule_20260426_highvol_lottery.md`
 
 6. Close with the distinction:
@@ -136,7 +136,7 @@ Expected result:
 
 ```text
 Found 2 failure clusters
-[PASS] rule_20260426_xinwei_semis_midvol_not_last3
+[PASS] rule_20260426_metalgoat_semis_midvol_not_last3
 [QUARANTINE] rule_20260426_highvol_lottery
 Risk Guardian loaded 1 active rule
 ```

@@ -28,8 +28,8 @@ Build only:
 
 - Daily-frequency simulated trades
 - Three-pillar Saju categorical features with the hierarchy year -> month -> day
-- Original Hanja pillar notation preserved as provenance, with romanized keys
-  used for machine validation
+- Original Hanja pillar notation preserved as provenance, with English-first
+  labels and compact English keys used for machine validation
 - Solar-term transition features such as `jieqi_zone`
 - Hidden-stem proxy weights for the month pillar
 - Local DuckDB at `data/gsuda.duckdb`

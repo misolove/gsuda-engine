@@ -236,6 +236,8 @@ def _render_validation_language(body: str, result: ValidationResult) -> str:
         body = body.replace("this candidate was", "this active rule was")
         body = body.replace("this candidate rule", "this active rule")
         body = body.replace("This candidate rule", "This active rule")
+        body = body.replace("this candidate suppresses", "this active rule suppresses")
+        body = body.replace("This candidate suppresses", "This active rule suppresses")
         body = body.replace(
             "The validator must replace the placeholder `backtest_stats` and decide whether the rule moves to `skills/active/` or `skills/quarantined/`.",
             "The validator replaced the placeholder `backtest_stats` and promoted the rule to `skills/active/`.",
@@ -243,6 +245,10 @@ def _render_validation_language(body: str, result: ValidationResult) -> str:
         body = body.replace(
             "It must pass empirical validation before it can be deployed.",
             "It passed empirical validation before deployment.",
+        )
+        body = body.replace(
+            "It treats the month pillar as a domain-informed categorical feature that must pass empirical validation before deployment.",
+            "It treats the month pillar as a domain-informed categorical feature that passed empirical validation before deployment.",
         )
         body = body.replace(
             "This rule must pass the validation gate before it can be considered for active deployment.",
@@ -253,12 +259,20 @@ def _render_validation_language(body: str, result: ValidationResult) -> str:
             "The validator replaced the placeholder backtest_stats and promoted this rule to active.",
         )
         body = body.replace(
+            "The validator must replace the placeholder backtest statistics and decide whether this rule becomes active or quarantined.",
+            "The validator replaced the placeholder backtest statistics and promoted this rule to active.",
+        )
+        body = body.replace(
             "The placeholder backtest statistics are intentionally set to zero or false. The validator is responsible for replacing them after historical-match, cluster-precision, winner-damage, and 2024-2025 out-of-sample checks.",
             "The validator replaced the placeholder backtest statistics after historical-match, cluster-precision, winner-damage, and 2024-2025 out-of-sample checks.",
         )
         body = body.replace(
             "The rule remains a candidate until the validator replaces the placeholder backtest statistics and confirms that the suppression passes the historical-match, cluster-precision, winner-damage, and 2024-2025 out-of-sample gates.",
             "The validator replaced the placeholder backtest statistics and confirmed that the suppression passes the historical-match, cluster-precision, winner-damage, and 2024-2025 out-of-sample gates.",
+        )
+        body = body.replace(
+            "This is a conservative candidate rule. It must pass the validator backtest gate before it can become active.",
+            "This conservative rule passed the validator backtest gate and became active.",
         )
         replacement = (
             "This rule passed the validation gate and was promoted to active status. "

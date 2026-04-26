@@ -23,23 +23,24 @@ from src.loop.trade_logger import log_trade
 from src.loop.validator import get_rule_id, render_validated_rule, validate_rule
 
 PILLARS = {
-    "BingWu": {"hanja": "丙午", "english": "Fire Horse"},
-    "YiSi": {"hanja": "乙巳", "english": "Wood Snake"},
-    "JiaZi": {"hanja": "甲子", "english": "Wood Rat"},
-    "YiChou": {"hanja": "乙丑", "english": "Wood Ox"},
-    "BingYin": {"hanja": "丙寅", "english": "Fire Tiger"},
-    "DingMao": {"hanja": "丁卯", "english": "Fire Rabbit"},
-    "WuChen": {"hanja": "戊辰", "english": "Earth Dragon"},
-    "JiSi": {"hanja": "己巳", "english": "Earth Snake"},
-    "GengWu": {"hanja": "庚午", "english": "Metal Horse"},
-    "XinWei": {"hanja": "辛未", "english": "Metal Goat"},
-    "RenShen": {"hanja": "壬申", "english": "Water Monkey"},
-    "GuiYou": {"hanja": "癸酉", "english": "Water Rooster"},
-    "GengChen": {"hanja": "庚辰", "english": "Metal Dragon"},
-    "JiaXu": {"hanja": "甲戌", "english": "Wood Dog"},
-    "JiMao": {"hanja": "己卯", "english": "Earth Rabbit"},
-    "RenChen": {"hanja": "壬辰", "english": "Water Dragon"},
-    "DingYou": {"hanja": "丁酉", "english": "Fire Rooster"},
+    "FireHorse": {"hanja": "丙午", "english": "Fire Horse"},
+    "WoodSnake": {"hanja": "乙巳", "english": "Wood Snake"},
+    "WoodRat": {"hanja": "甲子", "english": "Wood Rat"},
+    "WoodOx": {"hanja": "乙丑", "english": "Wood Ox"},
+    "FireTiger": {"hanja": "丙寅", "english": "Fire Tiger"},
+    "FireRabbit": {"hanja": "丁卯", "english": "Fire Rabbit"},
+    "EarthDragon": {"hanja": "戊辰", "english": "Earth Dragon"},
+    "EarthSnake": {"hanja": "己巳", "english": "Earth Snake"},
+    "MetalHorse": {"hanja": "庚午", "english": "Metal Horse"},
+    "MetalGoat": {"hanja": "辛未", "english": "Metal Goat"},
+    "WaterMonkey": {"hanja": "壬申", "english": "Water Monkey"},
+    "WaterRooster": {"hanja": "癸酉", "english": "Water Rooster"},
+    "MetalDragon": {"hanja": "庚辰", "english": "Metal Dragon"},
+    "MetalTiger": {"hanja": "庚寅", "english": "Metal Tiger"},
+    "WoodDog": {"hanja": "甲戌", "english": "Wood Dog"},
+    "EarthRabbit": {"hanja": "己卯", "english": "Earth Rabbit"},
+    "WaterDragon": {"hanja": "壬辰", "english": "Water Dragon"},
+    "FireRooster": {"hanja": "丁酉", "english": "Fire Rooster"},
 }
 
 
@@ -68,7 +69,8 @@ def _reset_demo_state(con: object) -> None:
 
 
 def _pillar_parts(pillar: str) -> tuple[str, str]:
-    return pillar[0], pillar[1]
+    element, animal = PILLARS[pillar]["english"].split(" ", 1)
+    return element, animal
 
 
 def _features(
@@ -85,8 +87,8 @@ def _features(
 ) -> dict[str, object]:
     d1, d2 = _pillar_parts(day_pillar)
     hidden = {
-        "XinWei": (0.2, 0.3, 0.5, 0.0, 0.0),
-        "GengChen": (0.2, 0.0, 0.6, 0.0, 0.2),
+        "MetalGoat": (0.2, 0.3, 0.5, 0.0, 0.0),
+        "MetalDragon": (0.2, 0.0, 0.6, 0.0, 0.2),
     }.get(month_pillar, (0.2, 0.2, 0.3, 0.2, 0.1))
     return {
         "ts": ts,
@@ -122,7 +124,7 @@ def _features(
 
 def _recommendations() -> list[TradeRecommendation]:
     rng = random.Random(settings.simulation_seed)
-    days = ["JiaZi", "YiChou", "BingYin", "DingMao", "WuChen", "JiSi", "GengWu", "XinWei", "RenShen", "GuiYou"]
+    days = ["WoodRat", "WoodOx", "FireTiger", "FireRabbit", "EarthDragon", "EarthSnake", "MetalHorse", "MetalGoat", "WaterMonkey", "WaterRooster"]
     recs: list[TradeRecommendation] = []
 
     def add(
@@ -151,7 +153,7 @@ def _recommendations() -> list[TradeRecommendation]:
                 features=_features(
                     ts=ts,
                     signal="Buy",
-                    year_pillar="BingWu" if year >= 2026 else "YiSi",
+                    year_pillar="FireHorse" if year >= 2026 else "WoodSnake",
                     month_pillar=month_pillar,
                     day_pillar=days[idx % len(days)],
                     jieqi_zone=jieqi_zone,
@@ -162,18 +164,18 @@ def _recommendations() -> list[TradeRecommendation]:
             )
         )
 
-    # Active-rule demo cluster: XinWei semiconductor mid-volatility buys are
+    # Active-rule demo cluster: Metal Goat semiconductor mid-volatility buys are
     # mostly losses, and the 2024-2025 holdout stays negative.
     for i in range(75):
         year = 2024 if i >= 45 else 2021 + (i % 3)
         loss = i < 51 or i >= 55
         add(
-            family="xinwei_semis",
+            family="metalgoat_semis",
             idx=i,
             year=year,
             symbol=f"09{i % 80:04d}",
             sector="Semiconductors and Semiconductor Equipment",
-            month_pillar="XinWei",
+            month_pillar="MetalGoat",
             jieqi_zone=["first_3", "middle", "last_4_5"][i % 3],
             volatility_20=round(rng.uniform(0.62, 1.18), 4),
             sim_return_t5=round(rng.uniform(-9.8, -0.4), 4) if loss else round(rng.uniform(0.4, 5.5), 4),
@@ -183,12 +185,12 @@ def _recommendations() -> list[TradeRecommendation]:
     # are the reason the active rule excludes `last_3`.
     for i in range(18):
         add(
-            family="xinwei_last3",
+            family="metalgoat_last3",
             idx=i,
             year=2024 + (i % 2),
             symbol=f"08{i % 40:04d}",
             sector="Semiconductors and Semiconductor Equipment",
-            month_pillar="XinWei",
+            month_pillar="MetalGoat",
             jieqi_zone="last_3",
             volatility_20=round(rng.uniform(0.62, 1.18), 4),
             sim_return_t5=round(rng.uniform(1.0, 9.5), 4),
@@ -204,7 +206,7 @@ def _recommendations() -> list[TradeRecommendation]:
             year=2023 + (i % 3),
             symbol=f"12{i % 70:04d}",
             sector=["Electrical Equipment", "Software", "Secondary Batteries", "Biotech"][i % 4],
-            month_pillar=["GengChen", "RenShen", "JiaXu"][i % 3],
+            month_pillar=["MetalDragon", "WaterMonkey", "WoodDog"][i % 3],
             jieqi_zone=["first_3", "middle", "last_3"][i % 3],
             volatility_20=round(rng.uniform(2.05, 3.4), 4),
             sim_return_t5=round(rng.uniform(-12.0, -0.7), 4) if loss else round(rng.uniform(2.0, 22.0), 4),
@@ -219,7 +221,7 @@ def _recommendations() -> list[TradeRecommendation]:
             year=2022 + (i % 4),
             symbol=f"03{i % 50:04d}",
             sector=["Cosmetics", "Machinery", "IT Services", "Securities"][i % 4],
-            month_pillar=["JiMao", "WuChen", "RenChen", "DingYou"][i % 4],
+            month_pillar=["EarthRabbit", "EarthDragon", "WaterDragon", "FireRooster"][i % 4],
             jieqi_zone=["first_4_5", "middle", "last_4_5"][i % 3],
             volatility_20=round(rng.uniform(0.25, 1.45), 4),
             sim_return_t5=round(rng.uniform(-4.5, 7.5), 4),

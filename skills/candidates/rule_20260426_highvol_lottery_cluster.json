@@ -41,14 +41,14 @@
     ],
     "rationale": "A tempting high-volatility suppression that should be quarantined for winner damage.",
     "domain_context": {
-      "pillar_notation": "Romanized machine keys are validated; original Hanja is preserved for Saju provenance."
+      "pillar_notation": "Compact English keys are validated; original Hanja is preserved for Saju provenance."
     },
     "sample_rows": [
       {
         "trade_id": "trade_highvol_000",
         "return_pct": -11.2455,
         "sector": "Electrical Equipment",
-        "month_pillar": "GengChen",
+        "month_pillar": "MetalDragon",
         "month_pillar_hanja": "庚辰",
         "month_pillar_english": "Metal Dragon",
         "jieqi_zone": "first_3",
@@ -58,7 +58,7 @@
         "trade_id": "trade_highvol_001",
         "return_pct": -9.2562,
         "sector": "Software",
-        "month_pillar": "RenShen",
+        "month_pillar": "WaterMonkey",
         "month_pillar_hanja": "壬申",
         "month_pillar_english": "Water Monkey",
         "jieqi_zone": "middle",
@@ -68,7 +68,7 @@
         "trade_id": "trade_highvol_002",
         "return_pct": -8.6611,
         "sector": "Secondary Batteries",
-        "month_pillar": "JiaXu",
+        "month_pillar": "WoodDog",
         "month_pillar_hanja": "甲戌",
         "month_pillar_english": "Wood Dog",
         "jieqi_zone": "last_3",
@@ -78,7 +78,7 @@
         "trade_id": "trade_highvol_005",
         "return_pct": -10.6871,
         "sector": "Software",
-        "month_pillar": "JiaXu",
+        "month_pillar": "WoodDog",
         "month_pillar_hanja": "甲戌",
         "month_pillar_english": "Wood Dog",
         "jieqi_zone": "last_3",
@@ -88,7 +88,7 @@
         "trade_id": "trade_highvol_006",
         "return_pct": -1.7532,
         "sector": "Secondary Batteries",
-        "month_pillar": "GengChen",
+        "month_pillar": "MetalDragon",
         "month_pillar_hanja": "庚辰",
         "month_pillar_english": "Metal Dragon",
         "jieqi_zone": "first_3",

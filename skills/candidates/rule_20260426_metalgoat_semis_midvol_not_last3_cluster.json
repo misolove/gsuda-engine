@@ -1,29 +1,29 @@
 {
-  "cluster_id": "xinwei_semis_midvol_not_last3",
+  "cluster_id": "metalgoat_semis_midvol_not_last3",
   "trade_ids": [
-    "trade_xinwei_semis_000",
-    "trade_xinwei_semis_001",
-    "trade_xinwei_semis_002",
-    "trade_xinwei_semis_003",
-    "trade_xinwei_semis_004",
-    "trade_xinwei_semis_005",
-    "trade_xinwei_semis_006",
-    "trade_xinwei_semis_007",
-    "trade_xinwei_semis_008",
-    "trade_xinwei_semis_009",
-    "trade_xinwei_semis_010",
-    "trade_xinwei_semis_011",
-    "trade_xinwei_semis_012",
-    "trade_xinwei_semis_013",
-    "trade_xinwei_semis_014",
-    "trade_xinwei_semis_015",
-    "trade_xinwei_semis_016",
-    "trade_xinwei_semis_017",
-    "trade_xinwei_semis_018",
-    "trade_xinwei_semis_019"
+    "trade_metalgoat_semis_000",
+    "trade_metalgoat_semis_001",
+    "trade_metalgoat_semis_002",
+    "trade_metalgoat_semis_003",
+    "trade_metalgoat_semis_004",
+    "trade_metalgoat_semis_005",
+    "trade_metalgoat_semis_006",
+    "trade_metalgoat_semis_007",
+    "trade_metalgoat_semis_008",
+    "trade_metalgoat_semis_009",
+    "trade_metalgoat_semis_010",
+    "trade_metalgoat_semis_011",
+    "trade_metalgoat_semis_012",
+    "trade_metalgoat_semis_013",
+    "trade_metalgoat_semis_014",
+    "trade_metalgoat_semis_015",
+    "trade_metalgoat_semis_016",
+    "trade_metalgoat_semis_017",
+    "trade_metalgoat_semis_018",
+    "trade_metalgoat_semis_019"
   ],
   "summary": {
-    "cluster_id": "xinwei_semis_midvol_not_last3",
+    "cluster_id": "metalgoat_semis_midvol_not_last3",
     "failure_count": 71,
     "avg_failed_return_pct": -5.5321,
     "worst_return_pct": -9.7842,
@@ -36,7 +36,7 @@
       {
         "feature": "month_pillar",
         "op": "=",
-        "value": "XinWei"
+        "value": "MetalGoat"
       },
       {
         "feature": "sector",
@@ -59,56 +59,56 @@
         ]
       }
     ],
-    "rationale": "Suppress XinWei semiconductor buys outside the final three solar-term days.",
+    "rationale": "Suppress Metal Goat semiconductor buys outside the final three solar-term days.",
     "domain_context": {
-      "pillar_notation": "Romanized machine keys are validated; original Hanja is preserved for Saju provenance."
+      "pillar_notation": "Compact English keys are validated; original Hanja is preserved for Saju provenance."
     },
     "sample_rows": [
       {
-        "trade_id": "trade_xinwei_semis_000",
+        "trade_id": "trade_metalgoat_semis_000",
         "return_pct": -8.3981,
         "sector": "Semiconductors and Semiconductor Equipment",
-        "month_pillar": "XinWei",
+        "month_pillar": "MetalGoat",
         "month_pillar_hanja": "辛未",
         "month_pillar_english": "Metal Goat",
         "jieqi_zone": "first_3",
         "volatility_20": 0.8006
       },
       {
-        "trade_id": "trade_xinwei_semis_001",
+        "trade_id": "trade_metalgoat_semis_001",
         "return_pct": -0.888,
         "sector": "Semiconductors and Semiconductor Equipment",
-        "month_pillar": "XinWei",
+        "month_pillar": "MetalGoat",
         "month_pillar_hanja": "辛未",
         "month_pillar_english": "Metal Goat",
         "jieqi_zone": "middle",
         "volatility_20": 1.1717
       },
       {
-        "trade_id": "trade_xinwei_semis_002",
+        "trade_id": "trade_metalgoat_semis_002",
         "return_pct": -8.9404,
         "sector": "Semiconductors and Semiconductor Equipment",
-        "month_pillar": "XinWei",
+        "month_pillar": "MetalGoat",
         "month_pillar_hanja": "辛未",
         "month_pillar_english": "Metal Goat",
         "jieqi_zone": "last_4_5",
         "volatility_20": 1.1253
       },
       {
-        "trade_id": "trade_xinwei_semis_003",
+        "trade_id": "trade_metalgoat_semis_003",
         "return_pct": -6.3079,
         "sector": "Semiconductors and Semiconductor Equipment",
-        "month_pillar": "XinWei",
+        "month_pillar": "MetalGoat",
         "month_pillar_hanja": "辛未",
         "month_pillar_english": "Metal Goat",
         "jieqi_zone": "first_3",
         "volatility_20": 0.7115
       },
       {
-        "trade_id": "trade_xinwei_semis_004",
+        "trade_id": "trade_metalgoat_semis_004",
         "return_pct": -8.2204,
         "sector": "Semiconductors and Semiconductor Equipment",
-        "month_pillar": "XinWei",
+        "month_pillar": "MetalGoat",
         "month_pillar_hanja": "辛未",
         "month_pillar_english": "Metal Goat",
         "jieqi_zone": "middle",

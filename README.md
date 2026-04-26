@@ -11,17 +11,18 @@ that domain-informed categorical features can be tested against market history.
 ## Saju Notation
 
 Saju's native notation is Hanja, so the engine preserves it as provenance while
-using romanized machine keys for reproducible validation. For example:
+using English-first labels and compact validation keys for reproducible checks.
+For example:
 
 | Layer | Value |
 | --- | --- |
-| Machine key | `XinWei` |
+| Primary English label | `Metal Goat` |
+| Validation key | `MetalGoat` |
 | Original Hanja | `辛未` |
-| English gloss | `Metal Goat` |
 
-Rules validate against the machine key, while generated skill files keep the
-Hanja and English gloss in `domain_context` so judges can see the original Saju
-structure without needing to read Chinese characters.
+Rules validate against the compact English key, while generated skill files keep
+the English label and original Hanja in `domain_context` so judges can see the
+native Saju structure without needing to read Chinese characters.
 
 ## Run The Demo
 
