@@ -12,7 +12,7 @@ trigger_conditions:
     value: 35
   - feature: sector
     op: "in"
-    value: ["반도체", "2차전지"]
+    value: ["Semiconductors", "Secondary Batteries"]
 suppression_logic: suppress_buy_signal
 backtest_stats:
   historical_matches: 87

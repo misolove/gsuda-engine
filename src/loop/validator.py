@@ -207,6 +207,7 @@ def render_validated_rule(rule_text: str, result: ValidationResult) -> str:
     metadata["backtest_stats"] = result.stats
     if result.failure_reason:
         metadata["failure_reason"] = result.failure_reason
+    body = _render_validation_language(body, result)
 
     yaml = YAML()
     yaml.allow_unicode = True
@@ -214,3 +215,59 @@ def render_validated_rule(rule_text: str, result: ValidationResult) -> str:
     out = io.StringIO()
     yaml.dump(metadata, out)
     return f"---\n{out.getvalue()}---\n\n{body}"
+
+
+def _render_validation_language(body: str, result: ValidationResult) -> str:
+    """Make the markdown body agree with the final validator decision."""
+
+    body = body.replace("\u2019", "'")
+    candidate_sentence = (
+        "This file is only a candidate. It must pass the validator's historical-match, "
+        "cluster-precision, winner-damage, and 2024-2025 out-of-sample checks before it can be promoted."
+    )
+    if result.passed:
+        body = body.replace("This candidate was", "This active rule was")
+        body = body.replace("this candidate was", "this active rule was")
+        body = body.replace("this candidate rule", "this active rule")
+        body = body.replace("This candidate rule", "This active rule")
+        body = body.replace(
+            "The validator must replace the placeholder `backtest_stats` and decide whether the rule moves to `skills/active/` or `skills/quarantined/`.",
+            "The validator replaced the placeholder `backtest_stats` and promoted the rule to `skills/active/`.",
+        )
+        body = body.replace(
+            "It must pass empirical validation before it can be deployed.",
+            "It passed empirical validation before deployment.",
+        )
+        body = body.replace(
+            "This rule must pass the validation gate before it can be considered for active deployment.",
+            "This rule passed the validation gate before active deployment.",
+        )
+        body = body.replace(
+            "The validator must replace the placeholder backtest_stats and decide whether this candidate moves to active or quarantined.",
+            "The validator replaced the placeholder backtest_stats and promoted this rule to active.",
+        )
+        body = body.replace(
+            "The placeholder backtest statistics are intentionally set to zero or false. The validator is responsible for replacing them after historical-match, cluster-precision, winner-damage, and 2024-2025 out-of-sample checks.",
+            "The validator replaced the placeholder backtest statistics after historical-match, cluster-precision, winner-damage, and 2024-2025 out-of-sample checks.",
+        )
+        replacement = (
+            "This rule passed the validation gate and was promoted to active status. "
+            "Risk Guardian can load it on the next recommendation."
+        )
+    else:
+        replacement = (
+            "This rule did not pass the validation gate and remains quarantined. "
+            f"Failure reason: {result.failure_reason}."
+        )
+    if candidate_sentence in body:
+        return body.replace(candidate_sentence, replacement)
+
+    validation_section = (
+        "\n\n## Validation Result\n\n"
+        + (
+            "Passed the validation gate and was promoted to active status."
+            if result.passed
+            else f"Quarantined by the validation gate. Failure reason: {result.failure_reason}."
+        )
+    )
+    return body.rstrip() + validation_section + "\n"

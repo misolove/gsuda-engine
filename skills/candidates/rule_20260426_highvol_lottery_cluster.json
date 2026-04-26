@@ -44,40 +44,40 @@
       {
         "trade_id": "trade_highvol_000",
         "return_pct": -11.2455,
-        "sector": "전기제품",
-        "month_pillar": "庚辰",
+        "sector": "Electrical Equipment",
+        "month_pillar": "GengChen",
         "jieqi_zone": "first_3",
         "volatility_20": 2.9124
       },
       {
         "trade_id": "trade_highvol_001",
         "return_pct": -9.2562,
-        "sector": "소프트웨어",
-        "month_pillar": "壬申",
+        "sector": "Software",
+        "month_pillar": "RenShen",
         "jieqi_zone": "middle",
         "volatility_20": 3.2445
       },
       {
         "trade_id": "trade_highvol_002",
         "return_pct": -8.6611,
-        "sector": "2차전지",
-        "month_pillar": "甲戌",
+        "sector": "Secondary Batteries",
+        "month_pillar": "JiaXu",
         "jieqi_zone": "last_3",
         "volatility_20": 2.2378
       },
       {
         "trade_id": "trade_highvol_005",
         "return_pct": -10.6871,
-        "sector": "소프트웨어",
-        "month_pillar": "甲戌",
+        "sector": "Software",
+        "month_pillar": "JiaXu",
         "jieqi_zone": "last_3",
         "volatility_20": 3.397
       },
       {
         "trade_id": "trade_highvol_006",
         "return_pct": -1.7532,
-        "sector": "2차전지",
-        "month_pillar": "庚辰",
+        "sector": "Secondary Batteries",
+        "month_pillar": "GengChen",
         "jieqi_zone": "first_3",
         "volatility_20": 2.7291
       }

@@ -105,8 +105,8 @@ the historical backtest remains the final authority.
 
 5. Open the generated files:
 
-   - `skills/candidates/rule_20260426_shinmi_semis_midvol_not_last3.md`
-   - `skills/active/rule_20260426_shinmi_semis_midvol_not_last3.md`
+   - `skills/candidates/rule_20260426_xinwei_semis_midvol_not_last3.md`
+   - `skills/active/rule_20260426_xinwei_semis_midvol_not_last3.md`
    - `skills/quarantined/rule_20260426_highvol_lottery.md`
 
 6. Close with the distinction:
@@ -128,7 +128,7 @@ Expected result:
 
 ```text
 Found 2 failure clusters
-[PASS] rule_20260426_shinmi_semis_midvol_not_last3
+[PASS] rule_20260426_xinwei_semis_midvol_not_last3
 [QUARANTINE] rule_20260426_highvol_lottery
 Risk Guardian loaded 1 active rule
 ```

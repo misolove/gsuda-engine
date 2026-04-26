@@ -60,7 +60,7 @@ def _draft_rule_with_mock(cluster: FailureCluster) -> str:
     if not condition_text:
         condition_text = '  - feature: volatility_20\n    op: ">="\n    value: 2.0'
     title = {
-        "shinmi_semis_midvol_not_last3": "suppress Shinmi semiconductor mid-vol buys",
+        "xinwei_semis_midvol_not_last3": "suppress XinWei semiconductor mid-vol buys",
         "highvol_lottery": "suppress high-volatility lottery buys",
     }.get(cluster.cluster_id, f"suppress {cluster.cluster_id}")
     rationale = str(cluster.summary.get("rationale", "Clustered losses share a repeated feature pattern."))
@@ -160,6 +160,7 @@ async def _draft_rule_with_agent_sdk(cluster: FailureCluster, project_root: Path
         - Include spawned_from_failures from the provided trade IDs.
         - Include placeholder backtest_stats with zeros/false; the validator will replace them.
         - After YAML, include a concise markdown explanation with "Why this rule exists" and "What it does".
+        - Use ASCII punctuation only.
         - Output ONLY the markdown file content. Do not wrap it in a code block.
         """
     ).strip()

@@ -21,23 +21,27 @@ def cluster_failures(connection: object, min_size: int = 15) -> list[FailureClus
 
     specs = [
         (
-            "shinmi_semis_midvol_not_last3",
+            "xinwei_semis_midvol_not_last3",
             """
             signal = 'Buy'
-            AND month_pillar = '辛未'
-            AND sector = '반도체와반도체장비'
+            AND month_pillar = 'XinWei'
+            AND sector = 'Semiconductors and Semiconductor Equipment'
             AND volatility_20 >= 0.6
             AND volatility_20 < 1.2
             AND jieqi_zone <> 'last_3'
             """,
             [
                 {"feature": "signal", "op": "=", "value": "Buy"},
-                {"feature": "month_pillar", "op": "=", "value": "辛未"},
-                {"feature": "sector", "op": "=", "value": "반도체와반도체장비"},
+                {"feature": "month_pillar", "op": "=", "value": "XinWei"},
+                {
+                    "feature": "sector",
+                    "op": "=",
+                    "value": "Semiconductors and Semiconductor Equipment",
+                },
                 {"feature": "volatility_20", "op": "between", "value": [0.6, 1.2]},
                 {"feature": "jieqi_zone", "op": "not_in", "value": ["last_3"]},
             ],
-            "Suppress Shinmi semiconductor buys outside the final three solar-term days.",
+            "Suppress XinWei semiconductor buys outside the final three solar-term days.",
         ),
         (
             "highvol_lottery",

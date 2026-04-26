@@ -1,8 +1,9 @@
 ---
 rule_id: rule_20260426_highvol_lottery
 status: quarantined
-description: Candidate suppression rule for Buy signals with elevated 20-day 
-  volatility, generated from clustered failed trades.
+cluster_id: highvol_lottery
+description: Suppress Buy recommendations when 20-day volatility is at least
+  2.0.
 trigger_conditions:
 - feature: signal
   op: '='
@@ -12,13 +13,8 @@ trigger_conditions:
   value: 2.0
 action:
   type: suppress_trade
-  reason: High-volatility Buy setup matched a failure cluster and requires 
-    empirical validation before deployment.
-spawned_from_cluster:
-  cluster_id: highvol_lottery
-  failure_count: 36
-  avg_failed_return_pct: -6.5823
-  worst_return_pct: -11.9101
+  reason: High volatility Buy recommendations in this failure cluster showed
+    repeated loss patterns and require empirical validation before deployment.
 spawned_from_failures:
 - trade_highvol_000
 - trade_highvol_001
@@ -40,35 +36,41 @@ spawned_from_failures:
 - trade_highvol_027
 - trade_highvol_030
 - trade_highvol_031
-sample_evidence:
+cluster_evidence:
+  failure_count: 36
+  avg_failed_return_pct: -6.5823
+  worst_return_pct: -11.9101
+  rationale: A tempting high-volatility suppression that should be quarantined
+    for winner damage.
+sample_rows:
 - trade_id: trade_highvol_000
   return_pct: -11.2455
-  sector: 전기제품
-  month_pillar: 庚辰
+  sector: Electrical Equipment
+  month_pillar: GengChen
   jieqi_zone: first_3
   volatility_20: 2.9124
 - trade_id: trade_highvol_001
   return_pct: -9.2562
-  sector: 소프트웨어
-  month_pillar: 壬申
+  sector: Software
+  month_pillar: RenShen
   jieqi_zone: middle
   volatility_20: 3.2445
 - trade_id: trade_highvol_002
   return_pct: -8.6611
-  sector: 2차전지
-  month_pillar: 甲戌
+  sector: Secondary Batteries
+  month_pillar: JiaXu
   jieqi_zone: last_3
   volatility_20: 2.2378
 - trade_id: trade_highvol_005
   return_pct: -10.6871
-  sector: 소프트웨어
-  month_pillar: 甲戌
+  sector: Software
+  month_pillar: JiaXu
   jieqi_zone: last_3
   volatility_20: 3.397
 - trade_id: trade_highvol_006
   return_pct: -1.7532
-  sector: 2차전지
-  month_pillar: 庚辰
+  sector: Secondary Batteries
+  month_pillar: GengChen
   jieqi_zone: first_3
   volatility_20: 2.7291
 backtest_stats:
@@ -82,30 +84,27 @@ backtest_stats:
   oos_avg_return_pct: -0.1585
   oos_median_return_pct: -3.1537
   oos_2024_2025_holds: true
-deployment_gate:
-  requires_backtest: true
-  auto_deploy: false
 notes:
-- This rule is a conservative candidate only and must not be activated until the
-  validator replaces placeholder stats.
-- Saju/Yi-derived fields in the evidence are treated as domain-informed 
-  categorical features, not as claims that Saju predicts stock prices.
+- This rule is a candidate only.
+- Saju and Yi-related fields are domain-informed categorical features and
+  require empirical validation.
+- The validator must replace placeholder backtest statistics before any
+  deployment decision.
 failure_reason: winner_damage_gt_35pct
 ---
 
 ## Why this rule exists
 
-This candidate was spawned from the `highvol_lottery` failed-trade cluster, which contains Buy recommendations with elevated `volatility_20`. The cluster summary reports 36 failures, an average failed return of `-6.5823%`, and a worst return of `-11.9101%`.
+This candidate was spawned from the `highvol_lottery` failed-trade cluster. The cluster contains Buy recommendations with `volatility_20 >= 2.0` that produced repeated negative outcomes, with an average failed return of -6.5823 percent and a worst observed return of -11.9101 percent.
 
-The cluster rationale notes that this is a tempting high-volatility suppression but may cause winner damage, so it must remain a candidate until empirical validation is complete.
+The cluster rationale explicitly warns that this suppression may cause winner damage. For that reason, the rule should remain a candidate until the validation gate measures historical matches, cluster precision, winner damage, and 2024-2025 out-of-sample behavior.
 
 ## What it does
 
-When a trade recommendation has:
+When a trade recommendation has `signal = Buy` and `volatility_20 >= 2.0`, this rule proposes suppressing the trade.
 
-- `signal = Buy`
-- `volatility_20 >= 2.0`
+This is not a claim that Saju or Yi-derived features predict stock prices. Any Saju-related fields in the evidence, such as `month_pillar` or `jieqi_zone`, are treated only as domain-informed categorical features that require empirical validation before use in an active trading rule.
 
-the rule proposes suppressing the trade before execution.
+## Validation Result
 
-This rule does not claim that volatility, Saju/Yi categories, month pillars, or solar-term features predict prices by themselves. It only records a provenance-linked hypothesis generated from failed trades. The validator must test historical match quality, cluster precision, winner damage, and 2024-2025 out-of-sample performance before this rule can move to active deployment.
+Quarantined by the validation gate. Failure reason: winner_damage_gt_35pct.

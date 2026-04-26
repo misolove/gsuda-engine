@@ -65,8 +65,8 @@ def _features(
 ) -> dict[str, object]:
     d1, d2 = _pillar_parts(day_pillar)
     hidden = {
-        "辛未": (0.2, 0.3, 0.5, 0.0, 0.0),
-        "庚辰": (0.2, 0.0, 0.6, 0.0, 0.2),
+        "XinWei": (0.2, 0.3, 0.5, 0.0, 0.0),
+        "GengChen": (0.2, 0.0, 0.6, 0.0, 0.2),
     }.get(month_pillar, (0.2, 0.2, 0.3, 0.2, 0.1))
     return {
         "ts": ts,
@@ -96,7 +96,7 @@ def _features(
 
 def _recommendations() -> list[TradeRecommendation]:
     rng = random.Random(settings.simulation_seed)
-    days = ["甲子", "乙丑", "丙寅", "丁卯", "戊辰", "己巳", "庚午", "辛未", "壬申", "癸酉"]
+    days = ["JiaZi", "YiChou", "BingYin", "DingMao", "WuChen", "JiSi", "GengWu", "XinWei", "RenShen", "GuiYou"]
     recs: list[TradeRecommendation] = []
 
     def add(
@@ -125,7 +125,7 @@ def _recommendations() -> list[TradeRecommendation]:
                 features=_features(
                     ts=ts,
                     signal="Buy",
-                    year_pillar="丙午" if year >= 2026 else "乙巳",
+                    year_pillar="BingWu" if year >= 2026 else "YiSi",
                     month_pillar=month_pillar,
                     day_pillar=days[idx % len(days)],
                     jieqi_zone=jieqi_zone,
@@ -136,18 +136,18 @@ def _recommendations() -> list[TradeRecommendation]:
             )
         )
 
-    # Active-rule demo cluster: Shinmi semiconductor mid-volatility buys are
+    # Active-rule demo cluster: XinWei semiconductor mid-volatility buys are
     # mostly losses, and the 2024-2025 holdout stays negative.
     for i in range(75):
         year = 2024 if i >= 45 else 2021 + (i % 3)
         loss = i < 51 or i >= 55
         add(
-            family="shinmi_semis",
+            family="xinwei_semis",
             idx=i,
             year=year,
             symbol=f"09{i % 80:04d}",
-            sector="반도체와반도체장비",
-            month_pillar="辛未",
+            sector="Semiconductors and Semiconductor Equipment",
+            month_pillar="XinWei",
             jieqi_zone=["first_3", "middle", "last_4_5"][i % 3],
             volatility_20=round(rng.uniform(0.62, 1.18), 4),
             sim_return_t5=round(rng.uniform(-9.8, -0.4), 4) if loss else round(rng.uniform(0.4, 5.5), 4),
@@ -157,12 +157,12 @@ def _recommendations() -> list[TradeRecommendation]:
     # are the reason the active rule excludes `last_3`.
     for i in range(18):
         add(
-            family="shinmi_last3",
+            family="xinwei_last3",
             idx=i,
             year=2024 + (i % 2),
             symbol=f"08{i % 40:04d}",
-            sector="반도체와반도체장비",
-            month_pillar="辛未",
+            sector="Semiconductors and Semiconductor Equipment",
+            month_pillar="XinWei",
             jieqi_zone="last_3",
             volatility_20=round(rng.uniform(0.62, 1.18), 4),
             sim_return_t5=round(rng.uniform(1.0, 9.5), 4),
@@ -177,8 +177,8 @@ def _recommendations() -> list[TradeRecommendation]:
             idx=i,
             year=2023 + (i % 3),
             symbol=f"12{i % 70:04d}",
-            sector=["전기제품", "소프트웨어", "2차전지", "바이오"][i % 4],
-            month_pillar=["庚辰", "壬申", "甲戌"][i % 3],
+            sector=["Electrical Equipment", "Software", "Secondary Batteries", "Biotech"][i % 4],
+            month_pillar=["GengChen", "RenShen", "JiaXu"][i % 3],
             jieqi_zone=["first_3", "middle", "last_3"][i % 3],
             volatility_20=round(rng.uniform(2.05, 3.4), 4),
             sim_return_t5=round(rng.uniform(-12.0, -0.7), 4) if loss else round(rng.uniform(2.0, 22.0), 4),
@@ -192,8 +192,8 @@ def _recommendations() -> list[TradeRecommendation]:
             idx=i,
             year=2022 + (i % 4),
             symbol=f"03{i % 50:04d}",
-            sector=["화장품", "기계", "IT서비스", "증권"][i % 4],
-            month_pillar=["己卯", "戊辰", "壬辰", "丁酉"][i % 4],
+            sector=["Cosmetics", "Machinery", "IT Services", "Securities"][i % 4],
+            month_pillar=["JiMao", "WuChen", "RenChen", "DingYou"][i % 4],
             jieqi_zone=["first_4_5", "middle", "last_4_5"][i % 3],
             volatility_20=round(rng.uniform(0.25, 1.45), 4),
             sim_return_t5=round(rng.uniform(-4.5, 7.5), 4),
