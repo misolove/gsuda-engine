@@ -18,5 +18,6 @@ ubuntu/
 *.mov
 *.m4v
 recordings/
+demo/generated/
 
 .DS_Store
