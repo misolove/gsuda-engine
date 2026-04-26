@@ -8,6 +8,77 @@ must pass a validation gate before Risk Guardian loads it. The project combines
 feature engineering. The claim is not that Saju predicts stocks; the claim is
 that domain-informed categorical features can be tested against market history.
 
+## What Problem It Solves
+
+Trading agents can learn the wrong lesson from a few vivid failures. A language
+model may draft a plausible new rule, but deploying that rule directly is
+dangerous.
+
+gsuda-engine makes the feedback loop explicit:
+
+1. Log every recommendation with its full feature vector.
+2. Wait for the realized outcome.
+3. Cluster repeated failures.
+4. Draft a candidate risk rule.
+5. Promote the rule only if it passes historical validation.
+
+The demo intentionally shows both outcomes: one rule is promoted to
+`skills/active/`, and one tempting rule is sent to `skills/quarantined/` because
+it would suppress too many winners.
+
+## Saju/Yeokhak For Non-Korean Readers
+
+Saju, also called the Four Pillars, is an East Asian calendrical classification
+system. A birth time, or any timestamp, can be represented as pillars for year,
+month, day, and hour. This MVP uses three pillars: year, month, and day.
+
+Each pillar combines two ideas:
+
+- a Heavenly Stem, often mapped to one of the Five Elements: Wood, Fire, Earth,
+  Metal, Water
+- an Earthly Branch, often mapped to an animal-like cycle label: Rat, Ox, Tiger,
+  Goat, and so on
+
+For example, the original Hanja pillar `辛未` is represented for judges as:
+
+| Representation | Example | Why it exists |
+| --- | --- | --- |
+| English display label | `Metal Goat` | Readable for non-Korean judges |
+| Compact validation key | `MetalGoat` | Stable for YAML, SQL, and rule matching |
+| Original Hanja | `辛未` | Preserves the native Saju notation as provenance |
+
+In this project, Saju is not used as an oracle. It is treated like a structured
+categorical feature family, similar in spirit to sector, day-of-week, market
+regime, or seasonality features. The only question the engine asks is empirical:
+did this feature pattern repeatedly appear in failed trades, and does suppressing
+that pattern survive validation?
+
+The Yeokhak-inspired features are handled the same way. For example,
+`jieqi_zone` approximates solar-term timing. Instead of assuming a market regime
+changes instantly on a calendar boundary, the feature lets the validator test
+whether behavior differs near the beginning, middle, or end of a solar-term
+window. Hidden-stem proxy weights are also stored as numeric context, but they
+do not become rules unless the backtest gate approves them.
+
+## Concrete Rule Example
+
+One active demo rule can be read in plain English:
+
+> When the Strategy Orchestrator emits a Buy recommendation for a semiconductor
+> stock, and the month pillar is `MetalGoat` (`辛未`, Metal Goat), and 20-day
+> volatility is in a mid-range band, suppress the trade unless it is in the final
+> three days of the solar-term window.
+
+The important part is not that `Metal Goat` "predicts" the market. The important
+part is provenance and validation:
+
+- the rule traces back to a specific cluster of failed trades
+- the original Saju label is preserved in the rule file
+- the trigger conditions are machine-checkable
+- the validator measures historical matches, cluster precision, winner damage,
+  and 2024-2025 out-of-sample behavior
+- only after passing those checks does the rule move to `skills/active/`
+
 ## Saju Notation
 
 Saju's native notation is Hanja, so the engine preserves it as provenance while
