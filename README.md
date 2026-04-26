@@ -26,6 +26,39 @@ The demo intentionally shows both outcomes: one rule is promoted to
 `skills/active/`, and one tempting rule is sent to `skills/quarantined/` because
 it would suppress too many winners.
 
+## Research Thesis: Time Climate And Collective Behavior
+
+My working thesis comes from studying Saju/Yeokhak alongside market systems.
+In traditional Saju, a person's pillars are often read as a map of tendencies,
+temperament, timing, and life arc. Year, month, and day pillars can also be
+understood as the "time climate" of a moment: the heaven-and-earth context into
+which people are acting.
+
+For markets, the hypothesis is behavioral rather than mystical:
+
+> if many participants share the same temporal climate, that climate may nudge
+> collective attention, risk appetite, narrative formation, crowding, and timing.
+
+That makes Saju/Yeokhak useful as a source of candidate features for investment
+research. The MVP tests this idea on Korean equities, and the broader thesis can
+also extend to crypto markets, where narrative cycles and crowd behavior are
+often even more visible.
+
+The same idea can be applied to investment targets themselves. A stock, coin, or
+token is not just a price series. It has a kind of market life:
+
+- birth: listing, token launch, first liquidity, first public narrative
+- growth: adoption, liquidity expansion, institutional attention
+- maturity: crowded ownership, stable narratives, lower surprise
+- decline or dormancy: fading volume, broken narratives, loss of sponsorship
+- rebirth: restructuring, new theme, new cycle, new liquidity
+
+In that sense, an asset can be studied like a living market object: it has its
+own origin timestamp, its own lifecycle, and its own exposure to the year,
+month, and day climate at each decision point. gsuda-engine does not assume this
+is true. It turns the idea into logged features, candidate rules, and validation
+gates so the market data can decide.
+
 ## Saju/Yeokhak For Non-Korean Readers
 
 Saju, also called the Four Pillars, is an East Asian calendrical classification
